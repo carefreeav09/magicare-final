@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import  './App.css'
-import "./assets/css/styles.css";
+import "./assets/compiled.css";
 import "./assets/css/argon-dashboard-react.css";
 import "./assets/vendor/nucleo/css/nucleo.css";
 import "./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css";

@@ -1,7 +1,34 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import Logo from "../../assets/img/brand/magicare.png";
+import {Form, Button, Input} from 'antd'
+import {withRouter} from 'react-router-dom';
 
-const LoginPage = () => {
+import {AuthContext} from "../../Context/AuthContext";
+
+const LoginPage = (props) => {
+    const {form} = props;
+    const {getFieldDecorator, resetFields, validateFields} = form;
+    const authData = useContext(AuthContext);
+
+    const handleSubmit = e =>{
+        e.preventDefault();
+        validateFields((err, values) =>{
+            if(!err){
+                authData.login(values);
+            }
+        })
+    };
+
+    const handleReset = e =>{
+        e.preventDefault();
+        resetFields();
+    };
+
+    useEffect(()=>{
+        console.log(authData);
+    }, [])
+
+
     return (
         <div className={'App-header'}>
             <div className="header bg-gradient-primary py-7 py-lg-8">
@@ -24,15 +51,26 @@ const LoginPage = () => {
                                     }}/>
                                 </div>
                             </div>
-                            <div className="card-body px-lg-5 py-lg-5">
-                                <form role="form">
+                            <div className="card-body px-lg-5 py-lg-5 login-form">
+                                <Form role="form" onSubmit={handleSubmit} onReset={handleReset}>
                                     <div className="form-group mb-3">
                                         <div className="input-group input-group-alternative">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text"><i
                                                     className="ni ni-email-83" /></span>
                                             </div>
-                                            <input className="form-control" placeholder="Email" type="email" />
+                                            <Form.Item>
+                                                {getFieldDecorator('username', {
+                                                    rules: [
+                                                        {
+                                                            required: true,
+                                                            message : 'Username is required'
+                                                        }
+                                                    ]
+                                                })(
+                                                    <Input className="form-control" placeholder="Username" type="text" />
+                                                )}
+                                            </Form.Item>
                                         </div>
                                     </div>
                                     <div className="form-group">
@@ -41,19 +79,24 @@ const LoginPage = () => {
                                                 <span className="input-group-text"><i
                                                     className="ni ni-lock-circle-open" /></span>
                                             </div>
-                                            <input className="form-control" placeholder="Password" type="password" />
+                                            <Form.Item>
+                                                {getFieldDecorator('password', {
+                                                    rules: [
+                                                        {
+                                                            required: true,
+                                                            message : 'Password is required'
+                                                        }
+                                                    ]
+                                                })(
+                                                    <Input className="form-control" placeholder="Password" type="password" />
+                                                )}
+                                            </Form.Item>
                                         </div>
                                     </div>
-                                    <div className="custom-control custom-control-alternative custom-checkbox">
-                                        <input className="custom-control-input" id=" customCheckLogin" type="checkbox" />
-                                            <label className="custom-control-label" htmlFor=" customCheckLogin">
-                                                <span className="text-muted">Remember me</span>
-                                            </label>
-                                    </div>
                                     <div className="text-center">
-                                        <button type="button" className="btn btn-primary my-4">Sign in</button>
+                                        <Button type="primary" htmlType='submit' className="btn btn-primary my-4">Sign in</Button>
                                     </div>
-                                </form>
+                                </Form>
                             </div>
                         </div>
                     </div>
@@ -63,4 +106,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default Form.create()(withRouter(LoginPage));

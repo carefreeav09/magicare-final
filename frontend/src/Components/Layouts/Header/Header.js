@@ -5,13 +5,13 @@ import {withRouter, Link} from "react-router-dom";
 const Header = () => {
     return (
         <div className={'bg-default main-content'}>
-            <nav className="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
+            <nav className="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark navbar-no-box-shadow">
                 <div className="container px-4">
-                    <a className="navbar-brand">
+                    <div className="navbar-brand">
                         <Link to={'/'} className={'white-text'}>
                             <h4 className={'white-text font-weight-bold'}>MAGICARE</h4>
                         </Link>
-                    </a>
+                    </div>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -21,9 +21,9 @@ const Header = () => {
                         <div className="navbar-collapse-header d-md-none">
                             <div className="row">
                                 <div className="col-6 collapse-brand">
-                                    <a>
+                                    <div>
                                         <img src={Logo} alt={'logo'}/>
-                                    </a>
+                                    </div>
                                 </div>
                                 <div className="col-6 collapse-close">
                                     <button type="button" className="navbar-toggler" data-toggle="collapse"
@@ -35,16 +35,16 @@ const Header = () => {
                         </div>
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <a className="nav-link nav-link-icon">
+                                <div className="nav-link nav-link-icon">
                                     <i className="ni ni-circle-08"/>
                                     <span className="nav-link-inner--text">Register</span>
-                                </a>
+                                </div>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link nav-link-icon">
+                                <div className="nav-link nav-link-icon">
                                     <i className="ni ni-key-25"/>
                                     <span className="nav-link-inner--text">Login</span>
-                                </a>
+                                </div>
                             </li>
                         </ul>
                     </div>
