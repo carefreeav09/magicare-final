@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 
-const db = mysql.createConnection({
+const connections = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
@@ -108,10 +108,10 @@ let createInventoryTable = `create table if not exists inventories(
 
 //  <------Inventory Information Table--------> //
 
-db.connect((err, result) => {
+connections.connect((err, result) => {
     if (err) throw err;
 
-    db.query(createUsersTable, function (err, results, fields) {
+    connections.query(createUsersTable, function (err, results, fields) {
         if (err) {
             console.log('There was problem in creating Table', err)
         } else {
@@ -119,13 +119,13 @@ db.connect((err, result) => {
         }
     });
 
-    db.query(countUsers, function (err, results, fields) {
+    connections.query(countUsers, function (err, results, fields) {
         if (err) {
             console.log(err)
         } else {
             let dataCount = results[0].t;
             if (dataCount === 0) {
-                db.query(createSuperUser, function (err, results, fields) {
+                connections.query(createSuperUser, function (err, results, fields) {
                     if (err) {
                         console.log(err.message)
                     } else {
@@ -137,7 +137,7 @@ db.connect((err, result) => {
 
     });
 
-    db.query(createVehiclesTable, function (err, results, fields) {
+    connections.query(createVehiclesTable, function (err, results, fields) {
         if (err) {
             console.log('There was problem in creating vehicles Table', err)
         } else {
@@ -145,7 +145,7 @@ db.connect((err, result) => {
         }
     });
 
-    db.query(createTaxTable, function (err, results, fields) {
+    connections.query(createTaxTable, function (err, results, fields) {
         if (err) {
             console.log('There was problem in creating taxes Table', err)
         } else {
@@ -153,7 +153,7 @@ db.connect((err, result) => {
         }
     });
 
-    db.query(createInventoryTable, function (err, results, fields) {
+    connections.query(createInventoryTable, function (err, results, fields) {
         if (err) {
             console.log('There was problem in creating inventory Table', err)
         } else {
@@ -164,4 +164,4 @@ db.connect((err, result) => {
     console.log('Tables are ready!')
 });
 
-module.exports = db;
+module.exports = connections;

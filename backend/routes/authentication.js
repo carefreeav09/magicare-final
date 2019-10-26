@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../database/db');
 
-
 router.get('/login', function(req, res, next) {
     const sql = 'select * from users';
     db.query(sql, (err, result)=> {
