@@ -1,22 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import logo from '../../assets/img/brand/logo.png';
 import {AuthContext} from "../../Context/AuthContext";
-import history from '../../Utilities/history';
 import {Link} from "react-router-dom";
-import {Spinner} from "react-bootstrap";
+import {getLocalStorage} from "../../Utilities/storageUtil";
+import {USER_FULL_NAME} from "../../Constants/appConfig";
 
 const Home = props => {
     const authData = useContext(AuthContext);
-    const {isAuthenticated} = authData;
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            console.log(isAuthenticated, 'isAuthenticated');
-            setTimeout(() => {
-                history.push('/login');
-            }, 3000);
-        }
-    }, [isAuthenticated]);
+    const {isAuthenticated, isLoggedIn, logout} = authData;
 
     return (
         <div className="App">
@@ -26,13 +17,22 @@ const Home = props => {
                     MAHA CHANDESWORI INFORMATION SYSTEM
                 </p>
 
-                {!isAuthenticated ?
+                {!isLoggedIn() ?
                 <Link to={'/login'}>
                     <button className={'btn btn-success btn-sm'}>
                         Login
                     </button>
                 </Link> :
-                    <Spinner animation="border" variant="primary" />
+                    <div>
+                       <button className={'btn btn-success'} onClick={()=>console.log('i got clicked')} >
+                           Continue as {getLocalStorage(USER_FULL_NAME)}
+                       </button>
+
+                        <br/>
+                        <h6 className={'mt-2 cursor-pointer red-text'} onClick={logout}>
+                            Sign-out
+                        </h6>
+                    </div>
                 }
 
             </header>

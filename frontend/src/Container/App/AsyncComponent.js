@@ -15,3 +15,8 @@ export const AsyncSignUp = loadable({
     loader : () => import(`../Auth/SignUpContainer`),
     loading: LoadingComponent
 });
+
+export const AsyncDashboard = loadable({
+    loader : () => import(`../Dashboard/`),
+    loading: LoadingComponent
+});

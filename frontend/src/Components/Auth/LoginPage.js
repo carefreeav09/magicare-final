@@ -26,7 +26,7 @@ const LoginPage = (props) => {
 
     useEffect(()=>{
         console.log(authData);
-    }, [])
+    }, []);
 
 
     return (

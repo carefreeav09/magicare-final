@@ -11,7 +11,7 @@ function auth(req, res, next) {
         req.user = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
         next();
     } catch (error) {
-        return res.status(400).send("Invalid Token");
+        return res.status(400).send(failed(401,"Invalid Token"));
     }
 }
 

@@ -1,5 +1,14 @@
 import React, {createContext, useState} from 'react';
 import axios from 'axios'
+import {
+    JWT_TOKEN,
+    USER_FULL_NAME,
+    USER_ROLE} from "../Constants/appConfig";
+import {
+    isLoggedIn
+} from '../Utilities/jwtUtil';
+import {clearLocalStorage, setLocalStorage} from "../Utilities/storageUtil";
+import history from "../Utilities/history";
 
 export const AuthContext = createContext();
 
@@ -7,20 +16,33 @@ const AuthContextProvider = props => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const login = (formData) => {
-        console.log(formData, 'loginPage');
-        return axios.post('http://localhost:5000/auth/login', formData)
+        return axios.post('http://localhost:5000/api/login', formData)
             .then(response => {
+                setLocalStorage(JWT_TOKEN, response.data.data.token);
+                setLocalStorage(USER_ROLE, response.data.data.role);
+                setLocalStorage(USER_FULL_NAME, response.data.data.username);
                 setIsAuthenticated(true);
+                history.push('/');
+                console.log(response);
             })
             .catch(error => {
                 console.log(error);
             })
     };
 
+    const logout = () => {
+        clearLocalStorage(JWT_TOKEN);
+        clearLocalStorage(USER_FULL_NAME)
+        clearLocalStorage(USER_ROLE);
+        history.push('/');
+    }
+
     return (
        <AuthContext.Provider value={{
            isAuthenticated: isAuthenticated,
-           login : (formData) => login(formData)
+           isLoggedIn : isLoggedIn,
+           login : (formData) => login(formData),
+           logout : logout
        }}>
            {props.children}
        </AuthContext.Provider>

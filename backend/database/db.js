@@ -1,15 +1,9 @@
-const mysql = require('mysql');
+const mysql = require("mysql");
+require("dotenv").config();
 
-const db = mysql.createConnection({
+module.exports = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'magicare'
 });
-
-db.connect((err, result) => {
-    if (err) throw err;
-
-});
-
-module.exports = db;
