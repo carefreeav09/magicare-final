@@ -5,3 +5,17 @@
 .cursor-pointer {
     cursor : pointer;
 }
+
+.admin-dashboard-top-nav {
+    margin-left: 250px;
+}
+
+.admin-dashboard-main-content {
+    margin-left: 250px;
+}
+
+.navbar-brand-img-dashboard {
+    height: 6rem !important;
+    width: 50%;
+    margin: auto;
+}

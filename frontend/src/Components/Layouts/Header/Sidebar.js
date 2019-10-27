@@ -1,10 +1,15 @@
 import React from 'react';
-import Logo from "../../../assets/img/brand/magicare.png";
+import Logo from "../../../assets/img/brand/MCIS.png";
+import Background from '../../../assets/img/brand/background.jpg';
 
 const Sidebar = () => {
     return (
-        <div>
-            <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+        <div >
+            <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main" style={{
+                height: 'inherit',
+                background: `url(${Background})`,
+                backgroundSize : 'cover'
+            }}>
                 <div className="container-fluid">
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false"
@@ -12,7 +17,7 @@ const Sidebar = () => {
                         <span className="navbar-toggler-icon"/>
                     </button>
                     <a className="navbar-brand pt-0">
-                        <img src={Logo} className="navbar-brand-img" alt="..."/>
+                        <img src={Logo} className="navbar-brand-img-dashboard" alt="..."/>
                     </a>
                     <ul className="nav align-items-center d-md-none">
                         <li className="nav-item dropdown">

@@ -12,10 +12,14 @@ const AdminLayout = (props) => {
     });
 
     return (
-        <section className="body-wrapper">
+        <section className="body-wrapper bg-default" style={{
+            minHeight : '100vh'
+        }}>
             <section className="body-main">
                 <AppHeader/>
-                {childElement}
+                <div className={'main-content admin-dashboard-main-content'}>
+                    {childElement}
+                </div>
             </section>
         </section>
     );
