@@ -4,10 +4,22 @@ import {AuthContext} from "../../Context/AuthContext";
 import {Link} from "react-router-dom";
 import {getLocalStorage} from "../../Utilities/storageUtil";
 import {USER_FULL_NAME} from "../../Constants/appConfig";
+import history from '../../Utilities/history'
 
 const Home = props => {
     const authData = useContext(AuthContext);
-    const {isAuthenticated, isLoggedIn, logout} = authData;
+    const {isLoggedIn, logout} = authData;
+
+    useEffect(() => {
+        isLoggedIn() &&
+            setTimeout(()=>{
+                history.push('/dashboard')
+            }, 5000);
+    }, []);
+
+    const goToDashboard = () => {
+        history.push('/dashboard');
+    };
 
     return (
         <div className="App">
@@ -24,17 +36,15 @@ const Home = props => {
                     </button>
                 </Link> :
                     <div>
-                       <button className={'btn btn-success'} onClick={()=>console.log('i got clicked')} >
-                           Continue as {getLocalStorage(USER_FULL_NAME)}
+                       <button className={'btn btn-success'} onClick={()=>goToDashboard()} >
+                           Continue as {getLocalStorage(USER_FULL_NAME)} (...in 5 seconds)
                        </button>
-
                         <br/>
                         <h6 className={'mt-2 cursor-pointer red-text'} onClick={logout}>
                             Sign-out
                         </h6>
                     </div>
                 }
-
             </header>
         </div>
     );
