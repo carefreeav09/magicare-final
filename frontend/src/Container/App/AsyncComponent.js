@@ -20,3 +20,8 @@ export const AsyncDashboard = loadable({
     loader : () => import(`../Dashboard/`),
     loading: LoadingComponent
 });
+
+export const AsyncVehicle = loadable({
+    loader : () => import(`../Vehicles/`),
+    loading: LoadingComponent
+});

@@ -1,4 +1,4 @@
-import { HTTP_404_ERROR, HTTP_500_ERROR } from '../constants/actionTypes';
+import { HTTP_404_ERROR, HTTP_500_ERROR } from '../Constants/actionTypes';
 
 export const http404Error = error => {
   return {

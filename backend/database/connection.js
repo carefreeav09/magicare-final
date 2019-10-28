@@ -14,7 +14,8 @@ let createUsersTable = `create table if not exists users(
         username varchar(50) unique not null,
         email varchar(50) unique not null,
         password varchar(50),
-        role enum('user', 'admin', 'superAdmin') default 'user' not null
+        role enum('user', 'admin', 'superAdmin') default 'user' not null,
+        createdDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )`;
 
 let createSuperUser = `insert into users values (1, 'superAdmin', 'superAdmin@admin.com', 'admin123', 'superAdmin')`;
@@ -25,11 +26,11 @@ let countUsers = `SELECT count(*) AS t FROM users`;
 //  <------Vehicles Information Table-------->
 
 let createVehiclesTable = `create table if not exists vehicles(
-        id int(10) primary key auto_increment,
-        servicingDate varchar(255),
-        vehiclePrefix varchar(255),
+        id int(10) primary key auto_increment unique,
+        servicingDate varchar(255) unique,
+        vehiclePrefix varchar(255) unique,
         vehicleNumber int(20),
-        vehicleType enum('bike', 'car', 'scooter', 'jeep', 'pickup', 'tipper', 'heavy', 'generator'),
+        vehicleType enum('Bike', 'Car', 'Scooter', 'Jeep', 'Pickup', 'Tipper', 'Heavy', 'Generator'),
         workedHours int(10),
         mobil int(10),
         tyres int(10),
@@ -50,7 +51,8 @@ let createVehiclesTable = `create table if not exists vehicles(
         spareParts enum('yes', 'no'),
         engineRepair enum('yes', 'no'),
         hydraulicFilter enum('yes', 'no'),
-        expiryDate varchar(255)
+        expiryDate varchar(255),
+        createdDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )`;
 
 //  <------Vehicles Information Table--------> //
@@ -59,11 +61,11 @@ let createVehiclesTable = `create table if not exists vehicles(
 
 
 let createTaxTable = `create table if not exists taxes(
-        id int(10) primary key auto_increment,
+        id int(10) primary key auto_increment unique,
         date varchar(50),
-        vehiclePrefix varchar(50),
-        vehicleNumber int(20),
-        vehicleType enum('bike', 'car', 'scooter', 'jeep', 'pickup', 'tipper', 'heavy', 'generator'),
+        vehiclePrefix varchar(50) unique,
+        vehicleNumber int(20) unique,
+        vehicleType enum('Bike', 'Car', 'Scooter', 'Jeep', 'Pickup', 'Tipper', 'Heavy', 'Generator'),
         chassisNumber varchar(50),
         engineNumber varchar(50),
         roadTaxDate varchar(50),
@@ -86,7 +88,8 @@ let createTaxTable = `create table if not exists taxes(
         policyNumber varchar(50),
         insuranceCompany text,
         insuredAmount int(20),
-        remarks text
+        remarks text,
+        createdDate varchar(255)
         )`;
 
 //  <------Tax Information Table--------> //
@@ -94,7 +97,7 @@ let createTaxTable = `create table if not exists taxes(
 //  <------Inventory Information Table-------->
 
 let createInventoryTable = `create table if not exists inventories(
-        id int(10) primary key auto_increment,
+        id int(10) primary key auto_increment unique,
         product varchar(255),
         price int(20),
         supplierInformation varchar(255),
@@ -103,7 +106,8 @@ let createInventoryTable = `create table if not exists inventories(
         usedIn varchar(255),
         serialNumber varchar(255),
         dateAdded varchar(20),
-        remarks text
+        remarks text,
+        createdDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )`;
 
 //  <------Inventory Information Table--------> //
@@ -139,7 +143,7 @@ connections.connect((err, result) => {
 
     connections.query(createVehiclesTable, function (err, results, fields) {
         if (err) {
-            console.log('There was problem in creating vehicles Table', err)
+            console.log('There was problem in creating vehicles', err)
         } else {
             console.log('Tables Created', results);
         }

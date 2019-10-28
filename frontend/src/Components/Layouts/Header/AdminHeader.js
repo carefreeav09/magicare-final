@@ -7,7 +7,6 @@ const AdminHeader = () => {
        <div>
            <Sidebar/>
            <AdminTopBar/>
-
        </div>
     );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import  './App.css'
+import 'antd/dist/antd.css';
 import "./assets/compiled.css";
 import "./assets/css/argon-dashboard-react.css";
 import "./assets/vendor/nucleo/css/nucleo.css";

@@ -1,0 +1,6 @@
+.Toastify__toast {
+  text-align: center;
+}
+.Toastify__toast--success {
+  background: #55CA92;
+}

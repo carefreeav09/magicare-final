@@ -27,14 +27,14 @@ const addVehicleInfo = (req, res) => {
             res.send({
                 code: '500',
                 message: 'FAILURE',
-                data : err
+                data : err.sqlMessage
             })
         }
         else {
             res.send({
                 code: '0',
                 message: 'SUCCESS',
-                data : `Data Added Successfully at ${result.insertId}`
+                data : `Data Added Successfully`
             })
         }
     })

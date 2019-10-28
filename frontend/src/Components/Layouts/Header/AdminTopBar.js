@@ -7,7 +7,7 @@ import {AuthContext} from "../../../Context/AuthContext";
 
 const AdminTopBar = () => {
     const authData = useContext(AuthContext);
-    const {isLoggedIn, logout} = authData;
+    const {logout} = authData;
     return (
         <div>
             <div className="admin-dashboard-top-nav">

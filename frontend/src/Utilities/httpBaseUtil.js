@@ -4,9 +4,9 @@ import { push } from 'connected-react-router';
 import {
     API_URL,
     JWT_TOKEN
-} from '../constants/appConfig';
-import { http404Error, http500Error } from '../actions/httpErrorAction';
-import configureStore from '../store/configureStore';
+} from '../Constants/appConfig';
+import { http404Error, http500Error } from '../Actions/httpErrorAction';
+import configureStore from '../Store/configureStore';
 import {getLocalStorage} from "./storageUtil";
 
 const store = configureStore();
