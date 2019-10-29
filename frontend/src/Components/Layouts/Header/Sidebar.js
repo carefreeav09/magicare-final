@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Logo from "../../../assets/img/brand/logo.png";
 import {MDBCollapse} from "mdbreact";
-import {withRouter, NavLink} from 'react-router-dom'
+import {withRouter, NavLink, Link} from 'react-router-dom'
 
 const Sidebar = () => {
     const [collapsedNav, setCollapsedNav] = useState('');
@@ -25,28 +25,92 @@ const Sidebar = () => {
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <NavLink to='/dashboard' className=" nav-link"> <i
-                                    className="ni ni-chart-bar-32 text-primary "/> Dashboard
+                                    className="ni ni-chart-bar-32 text-primary "/>
+                                    <span className={'text-primary'}>Dashboard</span>
                                 </NavLink>
                             </li>
 
                             <li className="nav-item">
-                                <NavLink to='/vehicles' className="nav-link"> <i className="fas fa-truck text-primary"/>
-                                    Vehicles Information
+                                <NavLink to='/vehicles' className="nav-link"> <i className="fas fa-truck text-success"/>
+                                    <span className={'text-success'}>Vehicles Information</span>
                                 </NavLink>
+
+                                <div className="sidenav-dropdown">
+                                    <ul className="list-unstyled">
+                                        <li>
+                                            <Link to={'/vehicles/add'}>
+                                                <a className="waves-effect">
+                                                    <i className={'fa fa-plus pr-1 py-2'}/>
+                                                    Add
+                                                </a>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to={'/vehicles/'}>
+                                                <a className="waves-effect">
+                                                    <i className={'fa fa-search pr-1 py-2'}/>
+                                                    Search
+                                                </a>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
 
                             </li>
 
                             <li className="nav-item">
-                                <NavLink to='/tax' className=" nav-link"> <i className="fas fa-paste text-primary"/>
-                                    Tax Information
+                                <NavLink to='/tax' className=" nav-link"> <i className="fas fa-paste text-warning"/>
+                                    <span className={'text-warning'}>Tax Information</span>
                                 </NavLink>
+
+                                <div className="sidenav-dropdown">
+                                    <ul className="list-unstyled">
+                                        <li>
+                                            <Link to={'/taxes/add'}>
+                                                <a className="waves-effect">
+                                                    <i className={'fa fa-plus pr-1 py-2'}/>
+                                                    Add
+                                                </a>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to={'/taxes/'}>
+                                                <a className="waves-effect">
+                                                    <i className={'fa fa-search pr-1 py-2'}/>
+                                                    Search
+                                                </a>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
 
                             <li className="nav-item">
                                 <NavLink to='/insurance' className=" nav-link">
-                                    <i className="fas fa-hospital-alt text-primary "/>
-                                    Insurance Information
+                                    <i className="fas fa-hospital-alt text-info "/>
+                                    <span className={'text-info'}>Insurance Information</span>
                                 </NavLink>
+
+                                <div className="sidenav-dropdown">
+                                    <ul className="list-unstyled">
+                                        <li>
+                                            <Link to={'/insurances/add'}>
+                                                <a className="waves-effect">
+                                                    <i className={'fa fa-plus pr-1 py-2'}/>
+                                                    Add
+                                                </a>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to={'/insurances/'}>
+                                                <a className="waves-effect">
+                                                    <i className={'fa fa-search pr-1 py-2'}/>
+                                                    Search
+                                                </a>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                         </ul>
                     </div>

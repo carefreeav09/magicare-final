@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import List from '../../Components/Vehicles';
+import AddForm from '../../Components/Vehicles/AddForm';
 import * as vehiclesService from '../../Services/vehiclesService';
 import * as vehiclesAction from '../../Actions/vehiclesAction';
 import {bindActionCreators} from "redux";
 
-export class ListContainer extends Component {
+export class AddFormContainer extends Component {
 
     /**
-     * fetch all vehicles.
+     * Add vehicle information.
      * @params {formData}
      *
      */
-    fetchVehiclesWithCriteria = (formData) => {
-        this.props.actions.fetchVehiclesWithCriteria(formData);
+    addVehicles = (formData) => {
+        this.props.actions.addVehicles(formData);
     };
 
     /**
@@ -27,9 +27,9 @@ export class ListContainer extends Component {
 
     render() {
         return (
-            <List
+            <AddForm
                 vehicleCleanRequest={this.vehicleCleanRequest}
-                fetchVehiclesWithCriteria={this.fetchVehiclesWithCriteria}
+                addVehicles={this.addVehicles}
                 {...this.props}
             />
         );
@@ -51,4 +51,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(ListContainer);
+)(AddFormContainer);

@@ -32,3 +32,12 @@
 .dataTables_filter, .dataTables_paginate{
     float: right !important;
 }
+
+.ant-table-column-title {
+    font-weight: bold !important;
+}
+
+.sidenav-dropdown {
+    padding-left: 4rem;
+    font-size: smaller;
+}

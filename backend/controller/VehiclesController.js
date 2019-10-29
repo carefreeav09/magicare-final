@@ -10,6 +10,16 @@ const fetchVehicles = (req, res) => {
     });
 };
 
+const fetchVehiclesWithCriteria = (req, res) => {
+    Vehicles.fetchAllVehiclesWithCriteria(req.connection, req.body,(err, result) => {
+        res.send({
+            code: '0',
+            message: 'SUCCESS',
+            data: result
+        })
+    });
+};
+
 const fetchVehiclesById = (req, res) => {
     Vehicles.fetchVehiclesById(req.connection, req.params.id,(err, result) => {
         res.send({
@@ -62,6 +72,7 @@ const destroyVehicles = (req, res) => {
 
 module.exports = {
     fetchVehicles: fetchVehicles,
+    fetchVehiclesWithCriteria: fetchVehiclesWithCriteria,
     fetchVehiclesById: fetchVehiclesById,
     addVehicleInfo: addVehicleInfo,
     destroyVehicles: destroyVehicles,

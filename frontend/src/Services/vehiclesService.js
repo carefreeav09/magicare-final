@@ -27,3 +27,22 @@ export const fetchVehicles = () => {
     }
 };
 
+export const fetchVehiclesWithCriteria = (formData = {}) => {
+    return dispatch => {
+        dispatch(vehicleFetchRequest());
+
+        return store(`api/vehicles`, formData)
+            .then( response => {
+                if(response.data.message === "SUCCESS"){
+                    dispatch(vehicleFetchRequestSuccess(response.data.data));
+                }
+                else {
+                    //TODO
+                }
+            })
+            .catch(error => {
+                dispatch(vehicleFetchRequestFailure(error))
+            })
+    }
+};
+
