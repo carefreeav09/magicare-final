@@ -13,11 +13,11 @@ const AdminTopBar = () => {
             <div className="admin-dashboard-top-nav">
                 <nav className="navbar navbar-expand-lg navbar-dark bg-gradient-primary ">
                     <div className="container-fluid">
-                        <a className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-                        >Dashboard</a>
+                        <div className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
+                        >Dashboard</div>
                         <ul className="navbar-nav align-items-center d-none d-md-flex">
                             <li className="nav-item dropdown">
-                                <a className="nav-link pr-0" href="#" role="button" data-toggle="dropdown"
+                                <div className="nav-link pr-0" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
                                     <div className="media align-items-center">
                                         <MDBDropdown>
@@ -33,7 +33,7 @@ const AdminTopBar = () => {
                                             </MDBDropdownMenu>
                                         </MDBDropdown>
                                     </div>
-                                </a>
+                                </div>
                             </li>
                         </ul>
                     </div>

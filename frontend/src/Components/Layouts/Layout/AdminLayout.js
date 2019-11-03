@@ -13,7 +13,8 @@ const AdminLayout = (props) => {
 
     return (
         <section className="body-wrapper" style={{
-            minHeight : '100vh'
+            minHeight : '100vh',
+            background: '#ecebeb'
         }}>
             <section className="body-main">
                 <AppHeader/>

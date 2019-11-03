@@ -5,6 +5,7 @@
   "dependencies": {
     "antd": "^3.24.2",
     "axios": "^0.19.0",
+    "babel-core": "^6.26.3",
     "bootstrap": "^4.3.1",
     "connected-react-router": "^6.5.2",
     "history": "^4.10.1",
@@ -14,6 +15,7 @@
     "node-sass": "^4.12.0",
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0-beta.14",
+    "react-datepicker-nepali": "^1.0.1",
     "react-dom": "^16.10.2",
     "react-loadable": "^5.5.0",
     "react-redux": "^7.1.1",

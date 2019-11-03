@@ -80,6 +80,9 @@ const List = props => {
 
     return (
         <div className={'container-fluid p-5'}>
+            <h4 className={'text-primary'} >
+                Vehicle Information Lists
+            </h4>
             <div className={'card mb-5 w-100'}>
                 <div className="card-body">
                     <h4 className="text-primary font-weight-bold">
@@ -145,15 +148,18 @@ const List = props => {
                 </div>
             </div>
 
-            <Table
-                columns={columns}
-                stripped
-                rowKey={record => record.id}
-                dataSource={vehicles}
-                scroll={{x: true}}
-                loading={props.vehiclesLoading}
-                onChange={handleTableChange}
-            />
+            <div className="card">
+                <Table
+                    columns={columns}
+                    stripped
+                    rowKey={record => record.id}
+                    dataSource={vehicles}
+                    scroll={{x: true}}
+                    loading={props.vehiclesLoading}
+                    onChange={handleTableChange}
+                />
+            </div>
+
         </div>
     );
 };

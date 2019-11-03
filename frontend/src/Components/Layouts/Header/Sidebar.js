@@ -4,11 +4,6 @@ import {MDBCollapse} from "mdbreact";
 import {withRouter, NavLink, Link} from 'react-router-dom'
 
 const Sidebar = () => {
-    const [collapsedNav, setCollapsedNav] = useState('');
-
-    const handleNavCollapse = collapseId => {
-        setCollapsedNav(collapseId);
-    }
     return (
         <div>
             <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light cloudy-knoxville-gradient"
@@ -39,18 +34,18 @@ const Sidebar = () => {
                                     <ul className="list-unstyled">
                                         <li>
                                             <Link to={'/vehicles/add'}>
-                                                <a className="waves-effect">
+                                                <div className="waves-effect">
                                                     <i className={'fa fa-plus pr-1 py-2'}/>
                                                     Add
-                                                </a>
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
                                             <Link to={'/vehicles/'}>
-                                                <a className="waves-effect">
+                                                <div className="waves-effect">
                                                     <i className={'fa fa-search pr-1 py-2'}/>
                                                     Search
-                                                </a>
+                                                </div>
                                             </Link>
                                         </li>
                                     </ul>
@@ -67,18 +62,18 @@ const Sidebar = () => {
                                     <ul className="list-unstyled">
                                         <li>
                                             <Link to={'/taxes/add'}>
-                                                <a className="waves-effect">
+                                                <div className="waves-effect">
                                                     <i className={'fa fa-plus pr-1 py-2'}/>
                                                     Add
-                                                </a>
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
                                             <Link to={'/taxes/'}>
-                                                <a className="waves-effect">
+                                                <div className="waves-effect">
                                                     <i className={'fa fa-search pr-1 py-2'}/>
                                                     Search
-                                                </a>
+                                                </div>
                                             </Link>
                                         </li>
                                     </ul>
@@ -95,18 +90,18 @@ const Sidebar = () => {
                                     <ul className="list-unstyled">
                                         <li>
                                             <Link to={'/insurances/add'}>
-                                                <a className="waves-effect">
+                                                <div className="waves-effect">
                                                     <i className={'fa fa-plus pr-1 py-2'}/>
                                                     Add
-                                                </a>
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
                                             <Link to={'/insurances/'}>
-                                                <a className="waves-effect">
+                                                <div className="waves-effect">
                                                     <i className={'fa fa-search pr-1 py-2'}/>
                                                     Search
-                                                </a>
+                                                </div>
                                             </Link>
                                         </li>
                                     </ul>

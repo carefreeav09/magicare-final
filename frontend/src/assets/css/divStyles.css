@@ -34,10 +34,24 @@
 }
 
 .ant-table-column-title {
+    color : #5e72e4;
     font-weight: bold !important;
 }
 
 .sidenav-dropdown {
     padding-left: 4rem;
     font-size: smaller;
+}
+
+.input-calendar-wrapper{
+    width: 350px !important;
+}
+
+.input-calendar-fields{
+    padding-left: 20px;
+    width: 100% !important;
+}
+
+.days, .months, .years{
+    margin: auto;
 }

@@ -10,7 +10,7 @@ const fetchAllVehiclesWithCriteria = (connection, data, callback) => {
     data && (data.vehicleType && data.vehicleNumber) ?
         connection.query(`select * from vehicles where vehicleType = '${data.vehicleType}' and vehicleNumber = ${data.vehicleNumber}`, callback) :
         data.vehicleNumber ?
-            connection.query(`select * from vehicles where vehicleNumber = ${data.vehicleNumber}%`, callback) :
+            connection.query(`select * from vehicles where vehicleNumber = '${data.vehicleNumber}'`, callback) :
             data.vehicleType ?
                 connection.query(`select * from vehicles where vehicleType = '${data.vehicleType}'`, callback) :
                 connection.query(`select * from vehicles`, callback);
