@@ -33,12 +33,11 @@ const fetchVehiclesById = (req, res) => {
 
 const addVehicleInfo = (req, res) => {
     Vehicles.addVehicles(req.connection, req.body, (err, result) => {
-        console.log(err, result)
         if(err){
             res.send({
-                code: '500',
+                code: 500,
                 message: 'FAILURE',
-                data : err.sqlMessage
+                data : err && err.sqlMessage
             })
         }
         else {

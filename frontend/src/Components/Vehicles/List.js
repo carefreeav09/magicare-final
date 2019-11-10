@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import {Table, Form, Input, Select, Button} from 'antd'
+import {isEmpty} from "../../Utilities/commonUtil";
 
 const {Option} = Select;
 const FormItem = Form.Item
@@ -68,7 +69,6 @@ const List = props => {
             let formData ={};
             formData.vehicleType =  values.vehicleType || null;
             formData.vehicleNumber =  values.vehicleNumber || null;
-            console.log(formData, 'this is formData');
             fetchVehiclesWithCriteria(formData);
         })
     };
@@ -76,7 +76,7 @@ const List = props => {
     const handleReset = e => {
         e.preventDefault();
         resetFields();
-    }
+    };
 
     return (
         <div className={'container-fluid p-5'}>
@@ -94,18 +94,7 @@ const List = props => {
                                 <FormItem label={'Vehicle Number'}>
                                     {getFieldDecorator('vehicleNumber', {
                                     })(
-                                        <Select style={{
-                                            width: '200px'
-                                        }} showSearch
-                                                placeholder={'Vehicle Number'}
-                                        >
-                                            <Option key={'10'} value={'10'}>
-                                                10
-                                            </Option>
-                                            <Option key={'20'} value={'20'}>
-                                                20
-                                            </Option>
-                                        </Select>
+                                        <Input className={'form-control'} />
                                     )}
                                 </FormItem>
                             </div>
@@ -153,10 +142,11 @@ const List = props => {
                     columns={columns}
                     stripped
                     rowKey={record => record.id}
-                    dataSource={vehicles}
+                    dataSource={!isEmpty(vehicles) && vehicles}
                     scroll={{x: true}}
                     loading={props.vehiclesLoading}
                     onChange={handleTableChange}
+                    className={'p-1'}
                 />
             </div>
 

@@ -3,9 +3,10 @@ import NepaliDatePicker from "react-datepicker-nepali";
 import moment from "moment";
 import {Form, Switch, Button} from "antd";
 import {withRouter, Link} from "react-router-dom";
+import {isEmpty} from "../../Utilities/commonUtil";
 
 const AddForm = (props) => {
-    const {form, addVehicles} = props;
+    const {form, addVehicles, vehiclesErrors} = props;
     const {getFieldDecorator, validateFields, getFieldValue, setFieldsValue, resetFields} = form;
     const nullDate = null;
 
@@ -81,6 +82,7 @@ const AddForm = (props) => {
 
     return (
         <div className={'container-fluid p-5'}>
+            {!isEmpty(vehiclesErrors) && <h6 className={'red white-text w-100'}>{vehiclesErrors}</h6>}
             <h4 className={'text-primary'}>Add Vehicle Information</h4>
             <div className="card card-gray-bg">
                 <div className="card-body">
@@ -435,6 +437,22 @@ const AddForm = (props) => {
                                             {
                                                 required: true,
                                                 message: 'Spare Parts is required'
+                                            }
+                                        ]
+                                    })(
+                                        <Switch className={'add-form-switch'}/>
+                                    )}
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-2 mb-2">
+                                <Form.Item {...formItemLayoutSwitch} label={'Diesel filter'}>
+                                    {getFieldDecorator('dieselFilter', {
+                                        initialValue: false,
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'Diesel filter is required'
                                             }
                                         ]
                                     })(

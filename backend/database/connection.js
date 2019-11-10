@@ -27,9 +27,9 @@ let countUsers = `SELECT count(*) AS t FROM users`;
 
 let createVehiclesTable = `create table if not exists vehicles(
         id int(10) primary key auto_increment unique,
-        servicingDate varchar(255) unique,
+        servicingDate varchar(255),
         vehiclePrefix varchar(255) unique,
-        vehicleNumber int(20),
+        vehicleNumber int(20) unique,
         vehicleType enum('Bike', 'Car', 'Scooter', 'Jeep', 'Pickup', 'Tipper', 'Heavy', 'Generator'),
         workedHours int(10),
         mobil int(10),
