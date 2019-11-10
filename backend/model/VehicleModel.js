@@ -17,6 +17,7 @@ const fetchAllVehiclesWithCriteria = (connection, data, callback) => {
 };
 
 const addVehicles = (connection, data, callback) =>{
+    console.log(data, 'data k aayo ta');
     connection.query(`
         insert into vehicles set ?` , data , callback)
 };

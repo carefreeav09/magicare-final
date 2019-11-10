@@ -27,11 +27,11 @@ export const fetchVehicles = () => {
     }
 };
 
-export const fetchVehiclesWithCriteria = (formData = {}) => {
+export const addVehicles = (formData = {}) => {
     return dispatch => {
         dispatch(vehicleFetchRequest());
 
-        return store(`api/vehicles`, formData)
+        return store(`api/vehicles/create`, formData)
             .then( response => {
                 if(response.data.message === "SUCCESS"){
                     dispatch(vehicleFetchRequestSuccess(response.data.data));

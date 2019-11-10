@@ -2,3 +2,21 @@
 {
     width: 80%;
 }
+
+.input-calendar-wrapper{
+    width: 350px !important;
+}
+
+.input-calendar-fields{
+    padding-left: 20px;
+    width: 100% !important;
+}
+
+.add-form .ant-form-item{
+    margin-bottom: 0 !important;
+    line-height: 20px;
+}
+
+.days, .months, .years{
+    margin: auto;
+}

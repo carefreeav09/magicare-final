@@ -43,15 +43,16 @@
     font-size: smaller;
 }
 
-.input-calendar-wrapper{
-    width: 350px !important;
+
+.add-form input, select {
+    line-height: 20px !important;
+    height: 40px !important;
 }
 
-.input-calendar-fields{
-    padding-left: 20px;
-    width: 100% !important;
+.card-gray-bg{
+    background: #f3f3f3 !important;
 }
 
-.days, .months, .years{
-    margin: auto;
+.has-success:after {
+    display: none !important;
 }

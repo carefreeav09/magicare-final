@@ -33,6 +33,7 @@ const fetchVehiclesById = (req, res) => {
 
 const addVehicleInfo = (req, res) => {
     Vehicles.addVehicles(req.connection, req.body, (err, result) => {
+        console.log(err, result)
         if(err){
             res.send({
                 code: '500',
@@ -42,7 +43,7 @@ const addVehicleInfo = (req, res) => {
         }
         else {
             res.send({
-                code: '0',
+                code: '200',
                 message: 'SUCCESS',
                 data : `Data Added Successfully`
             })
