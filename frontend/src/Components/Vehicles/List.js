@@ -13,6 +13,9 @@ const List = props => {
     useEffect(() => {
         vehicleCleanRequest();
         fetchVehiclesWithCriteria({});
+        return()=>{
+            vehicleCleanRequest();
+        }
     }, []);
 
     const columns = [
@@ -46,12 +49,16 @@ const List = props => {
         },
         {
             title: 'Actions',
-            dataIndex: 'actions',
+            dataIndex: 'id',
             render: item => {
                 return (
                     <span>
-                        <i className={'far fa-eye fa-lg text-primary px-1'}/>
+                        <Link to={`./${item}/detail`}>
+                            <i className={'far fa-eye fa-lg text-primary px-1'}/>
+                        </Link>
+                        <Link to={`./${item}/update`}>
                         <i className={'far fa-edit fa-lg text-success px-1'}/>
+                        </Link>
                         <i className={'fas fa-trash fa-lg text-danger px-1'}/>
                     </span>
                 )
@@ -66,9 +73,9 @@ const List = props => {
     const handleSubmit = e => {
         e.preventDefault();
         validateFields((err, values) => {
-            let formData ={};
-            formData.vehicleType =  values.vehicleType || null;
-            formData.vehicleNumber =  values.vehicleNumber || null;
+            let formData = {};
+            formData.vehicleType = values.vehicleType || null;
+            formData.vehicleNumber = values.vehicleNumber || null;
             fetchVehiclesWithCriteria(formData);
         })
     };
@@ -80,7 +87,7 @@ const List = props => {
 
     return (
         <div className={'container-fluid p-5'}>
-            <h4 className={'text-primary'} >
+            <h4 className={'text-primary'}>
                 Vehicle Information Lists
             </h4>
             <div className={'card mb-5 w-100'}>
@@ -92,17 +99,15 @@ const List = props => {
                         <div className="row">
                             <div className="col-md-5">
                                 <FormItem label={'Vehicle Number'}>
-                                    {getFieldDecorator('vehicleNumber', {
-                                    })(
-                                        <Input className={'form-control'} />
+                                    {getFieldDecorator('vehicleNumber', {})(
+                                        <Input className={'form-control'}/>
                                     )}
                                 </FormItem>
                             </div>
 
                             <div className="col-md-5">
                                 <FormItem label={'Vehicle Type'}>
-                                    {getFieldDecorator('vehicleType', {
-                                    })(
+                                    {getFieldDecorator('vehicleType', {})(
                                         <Select style={{
                                             width: '200px'
                                         }} showSearch
@@ -142,7 +147,7 @@ const List = props => {
                     columns={columns}
                     stripped
                     rowKey={record => record.id}
-                    dataSource={!isEmpty(vehicles) && vehicles}
+                    dataSource={vehicles instanceof Array && vehicles}
                     scroll={{x: true}}
                     loading={props.vehiclesLoading}
                     onChange={handleTableChange}

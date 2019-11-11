@@ -26,7 +26,7 @@ const fetchVehiclesById = (req, res) => {
             code: '0',
             message: 'SUCCESS',
             iD : req.id,
-            data: result
+            data: result[0]
         })
     });
 };

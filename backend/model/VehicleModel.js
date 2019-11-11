@@ -3,7 +3,7 @@ const fetchAllVehicles = (connection, callback) => {
 };
 
 const fetchVehiclesById = (connection, id, callback ) => {
-    connection.query(`select * from vehicles where id=${id}`, callback)
+    connection.query(`select * from vehicles where id=${id} limit 1`, callback)
 };
 
 const fetchAllVehiclesWithCriteria = (connection, data, callback) => {

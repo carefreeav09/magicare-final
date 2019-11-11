@@ -9,11 +9,11 @@ import {store, fetch, destroy} from '../Utilities/httpUtil';
 import Toast from "../Components/Common/Toast";
 import {push} from "connected-react-router";
 
-export const fetchVehicles = () => {
+export const fetchVehiclesByIdentifier = (id) => {
     return dispatch => {
         dispatch(vehicleFetchRequest());
 
-        return fetch(`api/vehicles`)
+        return fetch(`api/vehicles/${id}`)
             .then( response => {
                 if(response.data.message === "SUCCESS"){
                     dispatch(vehicleFetchRequestSuccess(response.data.data));
@@ -37,6 +37,27 @@ export const addVehicles = (formData = {}) => {
                 if(response.data.message === "SUCCESS"){
                     dispatch(vehicleFetchRequestSuccess(response.data.data));
                     Toast("Vehicle Added Successfully", "SUCCESS");
+                    dispatch(push({ pathname: "/vehicles/" }));
+
+                }
+                else {
+                    dispatch(vehicleFetchRequestFailure(response.data.data))
+                }
+            })
+            .catch(result => {
+                console.log(result, 'result')
+            })
+    }
+};
+
+export const updateVehicles = (formData = {}) => {
+    return dispatch => {
+        dispatch(vehicleFetchRequest());
+        return store(`api/vehicles/update/${formData.id}`, formData)
+            .then( response => {
+                if(response.data.message === "SUCCESS"){
+                    dispatch(vehicleFetchRequestSuccess(response.data.data));
+                    Toast("Vehicle Updated Successfully", "SUCCESS");
                     dispatch(push({ pathname: "/vehicles/" }));
 
                 }
