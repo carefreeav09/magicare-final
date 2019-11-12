@@ -6,7 +6,7 @@ import {withRouter, NavLink, Link} from 'react-router-dom'
 const Sidebar = () => {
     return (
         <div>
-            <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light cloudy-knoxville-gradient"
+            <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-dark discord-black"
                  id="sidenav-main" style={{
                 height: 'inherit',
             }}>
@@ -14,8 +14,8 @@ const Sidebar = () => {
                     <NavLink to='' className="navbar-brand pt-0">
                         <img src={Logo} className="navbar-brand-img-dashboard" alt="..."/>
                     </NavLink>
-                    <h2 className={'text-center '}> MCIS - Admin</h2>
-                    <hr className={'w-75'}/>
+                    <h2 className={'text-center white-text'}> MCIS - Admin</h2>
+                    <hr className={'w-75 white'}/>
                     <div className="collapse navbar-collapse" id="sidenav-collapse-main">
                         <ul className="navbar-nav">
                             <li className="nav-item">

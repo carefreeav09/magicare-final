@@ -43,6 +43,13 @@
     font-size: smaller;
 }
 
+.discord-black {
+    background: #333333 !important;
+}
+
+.nav-link .active {
+    background-color: #000000 !important;
+}
 
 .add-form input, select {
     line-height: 20px !important;

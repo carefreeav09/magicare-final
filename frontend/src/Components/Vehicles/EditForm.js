@@ -31,17 +31,17 @@ const EditForm = (props) => {
 
     const formItemLayoutSwitch = {
         labelCol: {
-            xl: {span: 16},
-            lg: {span: 16},
-            md: {span: 16},
-            sm: {span: 16},
-            xs: {span: 16},
+            xl: {span: 18},
+            lg: {span: 18},
+            md: {span: 18},
+            sm: {span: 18},
+            xs: {span: 24},
         },
         wrapperCol: {
-            xl: {span: 8},
-            lg: {span: 8},
-            md: {span: 8},
-            sm: {span: 8},
+            xl: {span: 6},
+            lg: {span: 6},
+            md: {span: 6},
+            sm: {span: 6},
             xs: {span: 24},
         },
         labelAlign: 'left',
@@ -75,6 +75,20 @@ const EditForm = (props) => {
             }
         })
     };
+
+    useEffect(()=>{
+        setFieldsValue({
+            [`airFilter`] : !!(vehicles && vehicles.airFilter === 1),
+            [`pilotFilter`] : !!(vehicles && vehicles.pilotFilter === 1),
+            [`hydraulicFilter`] : !!(vehicles && vehicles.hydraulicFilter === 1),
+            [`coolantFilter`] : !!(vehicles && vehicles.coolantFilter === 1),
+            [`transmissionFilter`] : !!(vehicles && vehicles.transmissionFilter === 1),
+            [`waterSafety`] : !!(vehicles && vehicles.waterSafety === 1),
+            [`breather`] : !!(vehicles && vehicles.breather === 1),
+            [`spareParts`] : !!(vehicles && vehicles.spareParts === 1),
+            [`dieselFilter`] : !!(vehicles && vehicles.dieselFilter === 1),
+        })
+    }, [vehicles]);
 
     const handleReset = () => {
         resetFields()
@@ -143,6 +157,14 @@ const EditForm = (props) => {
                                         ]
                                     })(
                                         <Input type="text" className="form-control"/>
+                                    )}
+                                </Form.Item>
+
+                                <Form.Item>
+                                    {getFieldDecorator('id', {
+                                        initialValue: vehicles && vehicles.id,
+                                    })(
+                                        <Input hidden disabled/>
                                     )}
                                 </Form.Item>
                             </div>
@@ -360,7 +382,7 @@ const EditForm = (props) => {
                                 <Form.Item {...formItemLayoutSwitch} label={'Air Filter'}>
                                     {getFieldDecorator('airFilter', {
                                         valuePropName: 'checked',
-                                        initialValue: vehicles && vehicles.airFilter === '1',
+                                        initialValue: !!(vehicles && vehicles.airFilter === 1),
 
                                         rules: [
                                             {
@@ -428,7 +450,8 @@ const EditForm = (props) => {
                             <div className="col-md-2 mb-2">
                                 <Form.Item {...formItemLayoutSwitch} label={'Transmission Filter'}>
                                     {getFieldDecorator('transmissionFilter', {
-                                        initialValue: vehicles && vehicles.transmissionFilter === '1',
+                                        initialValue: true,
+                                        valuePropName: 'checked',
                                         rules: [
                                             {
                                                 required: true,
@@ -445,6 +468,7 @@ const EditForm = (props) => {
                                 <Form.Item {...formItemLayoutSwitch} label={'Water Safety'}>
                                     {getFieldDecorator('waterSafety', {
                                         initialValue: vehicles && vehicles.waterSafety === '1',
+                                        valuePropName: 'checked',
                                         rules: [
                                             {
                                                 required: true,
@@ -461,6 +485,7 @@ const EditForm = (props) => {
                                 <Form.Item {...formItemLayoutSwitch} label={'Breather'}>
                                     {getFieldDecorator('breather', {
                                         initialValue: vehicles && vehicles.breather === '1',
+                                        valuePropName: 'checked',
                                         rules: [
                                             {
                                                 required: true,
@@ -477,6 +502,7 @@ const EditForm = (props) => {
                                 <Form.Item {...formItemLayoutSwitch} label={'Spare Parts'}>
                                     {getFieldDecorator('spareParts', {
                                         initialValue: vehicles && vehicles.spareParts === '1',
+                                        valuePropName: 'checked',
                                         rules: [
                                             {
                                                 required: true,
@@ -493,6 +519,7 @@ const EditForm = (props) => {
                                 <Form.Item {...formItemLayoutSwitch} label={'Diesel filter'}>
                                     {getFieldDecorator('dieselFilter', {
                                         initialValue: vehicles && vehicles.dieselFilter === '1',
+                                        valuePropName: 'checked',
                                         rules: [
                                             {
                                                 required: true,
@@ -509,10 +536,9 @@ const EditForm = (props) => {
                         <h6>Other Information</h6>
                         <div className="row">
                             <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Total Cost'}>
+                                <Form.Item {...formItemLayout} label={'Total Cost'}>
                                     {getFieldDecorator('totalCost', {
                                         initialValue: vehicles && vehicles.totalCost,
-
                                         rules: [
                                             {
                                                 required: true,

@@ -4,7 +4,7 @@ import {
     vehicleFetchRequestSuccess
 } from "../Actions/vehiclesAction";
 
-import {store, fetch, destroy} from '../Utilities/httpUtil';
+import {store, fetch, destroy, update} from '../Utilities/httpUtil';
 
 import Toast from "../Components/Common/Toast";
 import {push} from "connected-react-router";
@@ -53,7 +53,7 @@ export const addVehicles = (formData = {}) => {
 export const updateVehicles = (formData = {}) => {
     return dispatch => {
         dispatch(vehicleFetchRequest());
-        return store(`api/vehicles/update/${formData.id}`, formData)
+        return update(`api/vehicles/update/${formData.id}`, formData)
             .then( response => {
                 if(response.data.message === "SUCCESS"){
                     dispatch(vehicleFetchRequestSuccess(response.data.data));
@@ -76,6 +76,25 @@ export const fetchVehiclesWithCriteria = (formData = {}) => {
         dispatch(vehicleFetchRequest());
 
         return store(`api/vehicles/search`, formData)
+            .then( response => {
+                if(response.data.message === "SUCCESS"){
+                    dispatch(vehicleFetchRequestSuccess(response.data.data));
+                }
+                else {
+                    //TODO
+                }
+            })
+            .catch(error => {
+                dispatch(vehicleFetchRequestFailure(error))
+            })
+    }
+};
+
+export const fetchVehicles = () => {
+    return dispatch => {
+        dispatch(vehicleFetchRequest());
+
+        return fetch(`api/vehicles/`)
             .then( response => {
                 if(response.data.message === "SUCCESS"){
                     dispatch(vehicleFetchRequestSuccess(response.data.data));

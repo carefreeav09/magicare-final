@@ -8,6 +8,7 @@ let bodyParser = require('body-parser');
 
 let indexRouter = require('./router/index');
 let vehiclesRouter = require('./router/vehicleRouter');
+let taxRouter = require('./router/taxRouter');
 let usersRouter = require('./router/users');
 
 // const startup= require('./startup/startup');
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api', usersRouter);
 app.use('/api/vehicles', vehiclesRouter);
+app.use('/api/taxes', taxRouter);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

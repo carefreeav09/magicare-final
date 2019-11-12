@@ -19,40 +19,38 @@ const Detail = props => {
 
     const formItemLayout = {
         labelCol: {
-            xl: {span: 10},
-            lg: {span: 10},
-            md: {span: 10},
-            sm: {span: 10},
-            xs: {span: 24},
-        },
-        wrapperCol: {
             xl: {span: 14},
             lg: {span: 14},
             md: {span: 14},
             sm: {span: 14},
             xs: {span: 24},
         },
+        wrapperCol: {
+            xl: {span: 10},
+            lg: {span: 10},
+            md: {span: 10},
+            sm: {span: 10},
+            xs: {span: 24},
+        },
         labelAlign: 'left',
-        colon: false,
     };
 
     const formItemLayoutSwitch = {
         labelCol: {
-            xl: {span: 16},
-            lg: {span: 16},
-            md: {span: 16},
-            sm: {span: 16},
-            xs: {span: 16},
+            xl: {span: 24},
+            lg: {span: 24},
+            md: {span: 24},
+            sm: {span: 24},
+            xs: {span: 24},
         },
         wrapperCol: {
-            xl: {span: 8},
-            lg: {span: 8},
-            md: {span: 8},
-            sm: {span: 8},
+            xl: {span: 24},
+            lg: {span: 24},
+            md: {span: 24},
+            sm: {span: 24},
             xs: {span: 24},
         },
         labelAlign: 'left',
-        colon: false,
     };
 
     const formItemRemarks = {
@@ -71,7 +69,6 @@ const Detail = props => {
             xs: {span: 24},
         },
         labelAlign: 'left',
-        colon: false,
     };
 
     return (
@@ -102,7 +99,7 @@ const Detail = props => {
                         </h6>
                         <div className="row">
                             {console.log(vehicles && vehicles)}
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Servicing Date'}>
                                     <strong>
                                         {vehicles && vehicles.servicingDate}
@@ -110,20 +107,20 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Vehicle Prefix'}>
                                     <strong>{vehicles && vehicles.vehiclePrefix}
                                     </strong>
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Vehicle Number'}>
                                     {vehicles && vehicles.vehicleNumber}
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Vehicle Type'}>
                                     <strong>
                                         {vehicles && vehicles.vehicleType}
@@ -131,7 +128,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Worked Hours'}>
                                     <strong>
                                         {vehicles && vehicles.workedHours}
@@ -144,7 +141,7 @@ const Detail = props => {
                             Parts Information
                         </h6>
                         <div className="row">
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Mobil'}>
                                     <strong>
                                         {vehicles && vehicles.mobil}
@@ -152,7 +149,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Mobil Filter Count'}>
                                     <strong>
                                         {vehicles && vehicles.mobilFilter}
@@ -160,7 +157,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Engine Repair'}>
                                     <strong>
                                         {vehicles && vehicles.engineRepair}
@@ -168,7 +165,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Tyres'}>
                                     <strong>
                                         {vehicles && vehicles.tyres}
@@ -176,7 +173,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Tubes'}>
                                     <strong>
                                         {vehicles && vehicles.tubes}
@@ -184,7 +181,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Transmission Oil'}>
                                     <strong>
                                         {vehicles && vehicles.transmissionOil}
@@ -192,7 +189,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Hydraulic'}>
                                     <strong>
                                         {vehicles && vehicles.hydraulic}
@@ -200,7 +197,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-4 mb-2">
+                            <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Coolant Water'}>
                                     <strong>
                                         <strong>
@@ -215,7 +212,7 @@ const Detail = props => {
                             Has Parts Changed?
                         </h6>
                         <div className="row">
-                            <div className="col-md-2 mb-2">
+                            <div className="col-md-2">
                                 <Form.Item {...formItemLayoutSwitch} label={'Air Filter'}>
                                     <strong>
                                         <strong>
@@ -225,7 +222,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-2 mb-2">
+                            <div className="col-md-2">
                                 <Form.Item {...formItemLayoutSwitch} label={'Pilot Filter'}>
                                     <strong>
                                         {vehicles && vehicles.pilotFilter ? 'Yes' : 'No'}
@@ -233,7 +230,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-2 mb-2">
+                            <div className="col-md-2">
                                 <Form.Item {...formItemLayoutSwitch} label={'Hydraulic Filter'}>
                                     <strong>
                                         {vehicles && vehicles.hydraulicFilter ? 'Yes' : 'No'}
@@ -241,7 +238,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-2 mb-2">
+                            <div className="col-md-2">
                                 <Form.Item {...formItemLayoutSwitch} label={'Coolant Filter'}>
                                     <strong>
                                         {vehicles && vehicles.coolantFilter ? 'Yes' : 'No'}
@@ -249,7 +246,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-2 mb-2">
+                            <div className="col-md-2">
                                 <Form.Item {...formItemLayoutSwitch} label={'Transmission Filter'}>
                                     <strong>
                                         {vehicles && vehicles.transmissionFilter ? 'Yes' : 'No'}
@@ -257,7 +254,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-2 mb-2">
+                            <div className="col-md-2">
                                 <Form.Item {...formItemLayoutSwitch} label={'Water Safety'}>
                                     <strong>
                                         {vehicles && vehicles.waterSafety ? 'Yes' : 'No'}
@@ -265,7 +262,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-2 mb-2">
+                            <div className="col-md-2">
                                 <Form.Item {...formItemLayoutSwitch} label={'Breather'}>
                                     <strong>
                                         {vehicles && vehicles.breather ? 'Yes' : 'No'}
@@ -273,7 +270,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-2 mb-2">
+                            <div className="col-md-2">
                                 <Form.Item {...formItemLayoutSwitch} label={'Spare Parts'}>
                                     <strong>
                                         {vehicles && vehicles.spareParts ? 'Yes' : 'No'}
@@ -281,7 +278,7 @@ const Detail = props => {
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-2 mb-2">
+                            <div className="col-md-2">
                                 <Form.Item {...formItemLayoutSwitch} label={'Diesel filter'}>
                                     <strong>
                                         {vehicles && vehicles.dieselFilter ? 'Yes' : 'No'}
@@ -292,15 +289,15 @@ const Detail = props => {
 
                         <h6>Other Information</h6>
                         <div className="row">
-                            <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Total Cost'}>
+                            <div className="col-md-3">
+                                <Form.Item {...formItemLayout} label={'Total Cost'}>
                                     <strong>
                                         {vehicles && vehicles.totalCost}
                                     </strong>
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-8 mb-2">
+                            <div className="col-md-8">
                                 <Form.Item {...formItemRemarks} label={'Remarks'}>
                                     <strong>
                                         {vehicles && vehicles.remarks}

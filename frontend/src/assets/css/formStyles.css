@@ -21,9 +21,9 @@
     margin: auto;
 }
 
-.detail-form .ant-form-item-control {
-    background : #ccc;
-}
+/*.detail-form .ant-form-item-control {*/
+/*    background : #ccc;*/
+/*}*/
 
 .detail-form .ant-form-item {
     border: 1px solid #333 !important;
