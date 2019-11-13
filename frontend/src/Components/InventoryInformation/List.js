@@ -2,26 +2,27 @@ import React, {useEffect} from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import {Table, Form, Input, Select, Button} from 'antd'
 import {isEmpty} from "../../Utilities/commonUtil";
+import {inventoryCleanRequest} from "../../Actions/inventoryAction";
 
 const {Option} = Select;
 const FormItem = Form.Item
 
 const List = props => {
-    const {vehicles, vehicleCleanRequest, form, fetchVehiclesWithCriteria} = props;
+    const {inventories, inventoryCleanRequest, form, fetchInventoryWithCriteria} = props;
     const {validateFields, getFieldDecorator, resetFields} = form;
 
     useEffect(() => {
-        vehicleCleanRequest();
-        fetchVehiclesWithCriteria({});
+        inventoryCleanRequest();
+        fetchInventoryWithCriteria({});
         return()=>{
-            vehicleCleanRequest();
+            inventoryCleanRequest();
         }
     }, []);
 
     const columns = [
         {
-            title: <strong>Servicing Date</strong>,
-            dataIndex: 'servicingDate',
+            title: <strong>Date Added</strong>,
+            dataIndex: 'dateAdded',
             sorter: true,
             render: item => {
                 return (
@@ -32,20 +33,28 @@ const List = props => {
             },
         },
         {
-            title: 'Vehicle Prefix',
-            dataIndex: 'vehiclePrefix',
+            title: 'Product',
+            dataIndex: 'product',
         },
         {
-            title: 'Vehicle Type',
-            dataIndex: 'vehicleType',
+            title: 'Price',
+            dataIndex: 'price',
         },
         {
-            title: 'Vehicle Number',
-            dataIndex: 'vehicleNumber',
+            title: 'Supplier',
+            dataIndex: 'supplierInformation',
         },
         {
-            title: 'Remarks',
-            dataIndex: 'remarks',
+            title: 'StoredLocation',
+            dataIndex: 'storedLocation',
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status',
+        },
+        {
+            title: 'Used In',
+            dataIndex: 'usedIn',
         },
         {
             title: 'Actions',
@@ -76,7 +85,7 @@ const List = props => {
             let formData = {};
             formData.vehicleType = values.vehicleType || null;
             formData.vehicleNumber = values.vehicleNumber || null;
-            fetchVehiclesWithCriteria(formData);
+            fetchInventoryWithCriteria(formData);
         })
     };
 
@@ -85,10 +94,29 @@ const List = props => {
         resetFields();
     };
 
+    const formItemLayout = {
+        labelCol: {
+            xl: {span: 10},
+            lg: {span: 10},
+            md: {span: 10},
+            sm: {span: 10},
+            xs: {span: 24},
+        },
+        wrapperCol: {
+            xl: {span: 14},
+            lg: {span: 14},
+            md: {span: 14},
+            sm: {span: 14},
+            xs: {span: 24},
+        },
+        labelAlign: 'left',
+        colon: false,
+    };
+
     return (
         <div className={'container-fluid p-5'}>
             <h4 className={'text-primary'}>
-                Vehicle Information Lists
+                Inventory Information Lists
             </h4>
             <div className={'card mb-5 w-100'}>
                 <div className="card-body">
@@ -96,38 +124,64 @@ const List = props => {
                         FILTERS
                     </h4>
                     <Form layout={'inline'} onSubmit={handleSubmit} onReset={handleReset}>
-                        <div className="row">
-                            <div className="col-md-5">
-                                <FormItem label={'Vehicle Number'}>
-                                    {getFieldDecorator('vehicleNumber', {})(
+                        <div className="row inventories-form">
+                            <div className="col-md-3">
+                                <FormItem {...formItemLayout} label={'Product'}>
+                                    {getFieldDecorator('product', {})(
                                         <Input className={'form-control'}/>
                                     )}
                                 </FormItem>
                             </div>
 
-                            <div className="col-md-5">
-                                <FormItem label={'Vehicle Type'}>
-                                    {getFieldDecorator('vehicleType', {})(
-                                        <Select style={{
-                                            width: '200px'
-                                        }} showSearch
-                                                placeholder={'Select Vehicle Type'}
-                                        >
-                                            <Option key={'Bike'} value={'Bike'}>
-                                                Bike
-                                            </Option>
-                                            <Option key={'Car'} value={'Car'}>
-                                                Car
-                                            </Option>
-                                            <Option key={'Truck'} value={'Truck'}>
-                                                Truck
-                                            </Option>
-                                        </Select>
+                            <div className="col-md-3">
+                                <FormItem {...formItemLayout} label={'Price'}>
+                                    {getFieldDecorator('price', {})(
+                                        <Input className={'form-control'} />
                                     )}
                                 </FormItem>
                             </div>
 
-                            <div className="col-md-2">
+                            <div className="col-md-3">
+                                <FormItem {...formItemLayout} label={'Supplier'}>
+                                    {getFieldDecorator('supplierInformation', {})(
+                                        <Input className={'form-control'} />
+                                    )}
+                                </FormItem>
+                            </div>
+
+                            <div className="col-md-3">
+                                <FormItem {...formItemLayout} label={'Stored Location'}>
+                                    {getFieldDecorator('storedLocation', {})(
+                                        <Input className={'form-control'} />
+                                    )}
+                                </FormItem>
+                            </div>
+
+                            <div className="col-md-3">
+                                <FormItem {...formItemLayout} label={'Status'}>
+                                    {getFieldDecorator('status', {})(
+                                        <Input className={'form-control'} />
+                                    )}
+                                </FormItem>
+                            </div>
+
+                            <div className="col-md-3">
+                                <FormItem {...formItemLayout} label={'Used In'}>
+                                    {getFieldDecorator('usedIn', {})(
+                                        <Input className={'form-control'} />
+                                    )}
+                                </FormItem>
+                            </div>
+
+                            <div className="col-md-3">
+                                <FormItem {...formItemLayout} label={'Serial Number'}>
+                                    {getFieldDecorator('serialNumber', {})(
+                                        <Input className={'form-control'} />
+                                    )}
+                                </FormItem>
+                            </div>
+
+                            <div className="col-md-3">
                                 <Button htmlType="submit"
                                         className={'btn-success btn-sm'}>
                                     Search
@@ -147,7 +201,7 @@ const List = props => {
                     columns={columns}
                     stripped
                     rowKey={record => record.id}
-                    dataSource={vehicles instanceof Array && vehicles}
+                    dataSource={inventories instanceof Array && inventories}
                     scroll={{x: true}}
                     loading={props.vehiclesLoading}
                     onChange={handleTableChange}

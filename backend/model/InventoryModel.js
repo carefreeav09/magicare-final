@@ -7,7 +7,15 @@ const fetchInventoryInformationById = (connection, id, callback) => {
 };
 
 const fetchAllInventoryInformationWithCriteria = (connection, data, callback) => {
-    let sql = `select * from inventories where 1=1`;
+    let sql = `select * from inventories where 1=1  and ${data.product ? `product = '${data.product}'` : `1=1`} 
+     and ${data.price ? `price = ${data.price}` : `1=1`}
+     and ${data.supplierInformation ? ` supplierInformation = '${data.supplierInformation}'` : `1=1`}
+     and ${data.storedLocation ? ` storedLocation = '${data.storedLocation}'` : `1=1`}
+     and ${data.usedIn ? ` usedIn = '${data.usedIn}'` : `1=1`}
+     and ${data.serialNumber ? ` serialNumber = '${data.serialNumber}'` : `1=1`}
+    `;
+
+    console.log(sql, 'sql');
     connection.query(sql, callback);
 };
 

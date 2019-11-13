@@ -34,3 +34,9 @@
 .date-picker-unselected {
     color: rgba(169, 169, 169, 0.23) !important;
 }
+
+.inventories-form input{
+    padding: 0 !important;
+    height: 30px !important;
+    margin: 0 !important;
+}

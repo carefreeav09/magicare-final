@@ -61,27 +61,27 @@ const Sidebar = () => {
                                 <div className="sidenav-dropdown">
                                     <ul className="list-unstyled">
                                         <li>
-                                            <Link to={'/taxes/add'}>
+                                            <NavLink to={'/taxes/add'}>
                                                 <div className="waves-effect">
                                                     <i className={'fa fa-plus pr-1 py-2'}/>
                                                     Add
                                                 </div>
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                         <li>
-                                            <Link to={'/taxes/'}>
+                                            <NavLink to={'/taxes/'}>
                                                 <div className="waves-effect">
                                                     <i className={'fa fa-search pr-1 py-2'}/>
                                                     Search
                                                 </div>
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
 
                             <li className="nav-item">
-                                <NavLink to='/insurance' className=" nav-link">
+                                <NavLink to='/inventories' className=" nav-link">
                                     <i className="fas fa-hospital-alt text-info "/>
                                     <span className={'text-info'}>Inventory Information</span>
                                 </NavLink>
@@ -89,20 +89,20 @@ const Sidebar = () => {
                                 <div className="sidenav-dropdown">
                                     <ul className="list-unstyled">
                                         <li>
-                                            <Link to={'/inventories/add'}>
+                                            <NavLink to={'/inventories/add'}>
                                                 <div className="waves-effect">
                                                     <i className={'fa fa-plus pr-1 py-2'}/>
                                                     Add
                                                 </div>
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                         <li>
-                                            <Link to={'/inventories/'}>
+                                            <NavLink to={'/inventories/'}>
                                                 <div className="waves-effect">
                                                     <i className={'fa fa-search pr-1 py-2'}/>
                                                     Search
                                                 </div>
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                     </ul>
                                 </div>

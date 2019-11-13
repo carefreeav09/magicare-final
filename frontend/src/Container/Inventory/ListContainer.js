@@ -2,34 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import List from '../../Components/InventoryInformation';
-import * as vehiclesService from '../../Services/vehiclesService';
-import * as vehiclesAction from '../../Actions/vehiclesAction';
+import * as inventoriesService from '../../Services/inventoriesService';
+import * as inventoryAction from '../../Actions/inventoryAction';
 import {bindActionCreators} from "redux";
 
 export class ListContainer extends Component {
 
     /**
-     * fetch all vehicles.
+     * fetch all inventories.
      * @params {formData}
      *
      */
-    fetchVehiclesWithCriteria = (formData) => {
-        this.props.actions.fetchVehiclesWithCriteria(formData);
+    fetchInventoryWithCriteria = (formData) => {
+        this.props.actions.fetchInventoryWithCriteria(formData);
     };
 
     /**
-     * clean all vehicle records..
+     * clean all inventory records..
      *
      */
-    vehicleCleanRequest = () => {
-        this.props.actions.vehicleCleanRequest();
+    inventoryCleanRequest = () => {
+        this.props.actions.inventoryCleanRequest();
     };
 
     render() {
         return (
             <List
-                vehicleCleanRequest={this.vehicleCleanRequest}
-                fetchVehiclesWithCriteria={this.fetchVehiclesWithCriteria}
+                inventoryCleanRequest={this.inventoryCleanRequest}
+                fetchInventoryWithCriteria={this.fetchInventoryWithCriteria}
                 {...this.props}
             />
         );
@@ -37,14 +37,14 @@ export class ListContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    vehicles: state.vehicles.payload,
-    vehiclesLoading: state.vehicles.loading,
-    vehiclesErrors : state.vehicles.errors
+    inventories: state.inventories.payload,
+    inventoriesLoading: state.inventories.loading,
+    inventoriesErrors : state.inventories.errors
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(Object.assign({}, vehiclesService, vehiclesAction), dispatch),
+        actions: bindActionCreators(Object.assign({}, inventoriesService, inventoryAction), dispatch),
     };
 };
 

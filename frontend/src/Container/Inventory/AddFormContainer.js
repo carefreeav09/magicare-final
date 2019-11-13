@@ -2,34 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import AddForm from '../../Components/InventoryInformation/AddForm';
-import * as vehiclesService from '../../Services/vehiclesService';
-import * as vehiclesAction from '../../Actions/vehiclesAction';
+import * as inventoriesService from '../../Services/inventoriesService';
+import * as inventoryAction from '../../Actions/inventoryAction';
 import {bindActionCreators} from "redux";
 
 export class AddFormContainer extends Component {
 
     /**
-     * Add vehicle information.
+     * Add inventory information.
      * @params {formData}
      *
      */
-    addVehicles = (formData) => {
-        this.props.actions.addVehicles(formData);
+    addInventory = (formData) => {
+        this.props.actions.addInventory(formData);
     };
 
     /**
      * clean all vehicle records..
      *
      */
-    vehicleCleanRequest = () => {
-        this.props.actions.vehicleCleanRequest();
+    inventoryCleanRequest = () => {
+        this.props.actions.inventoryCleanRequest();
     };
 
     render() {
         return (
             <AddForm
-                vehicleCleanRequest={this.vehicleCleanRequest}
-                addVehicles={this.addVehicles}
+                inventoryCleanRequest={this.inventoryCleanRequest}
+                addInventory={this.addInventory}
                 {...this.props}
             />
         );
@@ -37,14 +37,14 @@ export class AddFormContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    vehicles: state.vehicles.payload,
-    vehiclesLoading: state.vehicles.loading,
-    vehiclesErrors : state.vehicles.errors
+    inventories: state.inventories.payload,
+    inventoriesLoading: state.inventories.loading,
+    inventoriesErrors : state.inventories.errors
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(Object.assign({}, vehiclesService, vehiclesAction), dispatch),
+        actions: bindActionCreators(Object.assign({}, inventoriesService, inventoryAction), dispatch),
     };
 };
 

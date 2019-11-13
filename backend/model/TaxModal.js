@@ -7,8 +7,9 @@ const fetchTaxInformationById = (connection, id, callback) => {
 };
 
 const fetchAllTaxInformationWithCriteria = (connection, data, callback) => {
-    let sql = `select * from taxes where 1=1 and (vehicleType = ${data.vehicleType} OR ${data.vehicleType} is null) and (vehicleNumber = ${data.vehicleNumber} OR ${data.vehicleNumber} is null) and
-    (companyName like ${data.companyName} OR ${data.companyName} is null)`;
+    let sql = `select * from taxes where 1=1 and (vehicleType = ${data.vehicleType} OR vehicleType is null) and (vehicleNumber = ${data.vehicleNumber} OR vehicleNumber is null) and
+    (insuranceCompany like ${data.insuranceCompany} OR insuranceCompany is null)`;
+    console.log(sql);
     connection.query(sql, callback);
 };
 

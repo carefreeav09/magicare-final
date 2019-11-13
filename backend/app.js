@@ -9,6 +9,7 @@ let bodyParser = require('body-parser');
 let indexRouter = require('./router/index');
 let vehiclesRouter = require('./router/vehicleRouter');
 let taxRouter = require('./router/taxRouter');
+let inventoryRouter = require('./router/inventoryRouter');
 let usersRouter = require('./router/users');
 
 // const startup= require('./startup/startup');
@@ -34,7 +35,7 @@ app.use('/', indexRouter);
 app.use('/api', usersRouter);
 app.use('/api/vehicles', vehiclesRouter);
 app.use('/api/taxes', taxRouter);
-app.use('/api/inventories', taxRouter);
+app.use('/api/inventories', inventoryRouter);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
