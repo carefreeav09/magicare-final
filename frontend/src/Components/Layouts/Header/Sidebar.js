@@ -83,13 +83,13 @@ const Sidebar = () => {
                             <li className="nav-item">
                                 <NavLink to='/insurance' className=" nav-link">
                                     <i className="fas fa-hospital-alt text-info "/>
-                                    <span className={'text-info'}>Insurance Information</span>
+                                    <span className={'text-info'}>Inventory Information</span>
                                 </NavLink>
 
                                 <div className="sidenav-dropdown">
                                     <ul className="list-unstyled">
                                         <li>
-                                            <Link to={'/insurances/add'}>
+                                            <Link to={'/inventories/add'}>
                                                 <div className="waves-effect">
                                                     <i className={'fa fa-plus pr-1 py-2'}/>
                                                     Add
@@ -97,7 +97,7 @@ const Sidebar = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to={'/insurances/'}>
+                                            <Link to={'/inventories/'}>
                                                 <div className="waves-effect">
                                                     <i className={'fa fa-search pr-1 py-2'}/>
                                                     Search

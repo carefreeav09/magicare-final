@@ -12,7 +12,8 @@ import {
     AsyncLogin,
     AsyncDashboard,
     AsyncVehicle,
-    AsyncSignUp
+    AsyncSignUp,
+    AsyncInventory
 } from "./AsyncComponent";
 
 const App = () => (
@@ -23,6 +24,7 @@ const App = () => (
             <PublicRoute component={AsyncSignUp} layout={MainLayout} exact path='/signup' />
             <PrivateRoute component={AsyncDashboard} layout={AdminLayout} exact path='/dashboard' />
             <PrivateRoute component={AsyncVehicle} layout={AdminLayout} path='/vehicles' />
+            <PrivateRoute component={AsyncInventory} layout={AdminLayout} path='/inventories' />
         </Switch>
     </div>
 );

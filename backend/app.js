@@ -34,6 +34,7 @@ app.use('/', indexRouter);
 app.use('/api', usersRouter);
 app.use('/api/vehicles', vehiclesRouter);
 app.use('/api/taxes', taxRouter);
+app.use('/api/inventories', taxRouter);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

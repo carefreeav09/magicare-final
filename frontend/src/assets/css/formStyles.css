@@ -10,6 +10,7 @@
 .input-calendar-fields{
     padding-left: 20px;
     width: 100% !important;
+    color: rgba(169, 169, 169, 0.43) !important;
 }
 
 .add-form .ant-form-item{
@@ -21,11 +22,15 @@
     margin: auto;
 }
 
-/*.detail-form .ant-form-item-control {*/
-/*    background : #ccc;*/
-/*}*/
-
 .detail-form .ant-form-item {
     border: 1px solid #333 !important;
     padding: 2px 15px;
+}
+
+.date-picker-selected {
+    color : black !important;
+}
+
+.date-picker-unselected {
+    color: rgba(169, 169, 169, 0.23) !important;
 }

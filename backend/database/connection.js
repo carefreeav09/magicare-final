@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const connections = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'root1234',
     database: 'magicare'
 });
 
@@ -18,7 +18,7 @@ let createUsersTable = `create table if not exists users(
         createdDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )`;
 
-let createSuperUser = `insert into users values (1, 'superAdmin', 'superAdmin@admin.com', 'admin123', 'superAdmin')`;
+let createSuperUser = `insert into users (username, email, password, role ) values ('superAdmin', 'superAdmin@admin.com', 'admin123', 'superAdmin')`;
 let countUsers = `SELECT count(*) AS t FROM users`;
 
 //  <------Users Table--------> //
@@ -63,8 +63,8 @@ let createVehiclesTable = `create table if not exists vehicles(
 let createTaxTable = `create table if not exists taxes(
         id int(10) primary key auto_increment unique,
         date varchar(50),
-        vehiclePrefix varchar(50) unique,
-        vehicleNumber int(20) unique,
+        vehiclePrefix varchar(50),
+        vehicleNumber int(20),
         vehicleType enum('Bike', 'Car', 'Scooter', 'Jeep', 'Pickup', 'Tipper', 'Heavy', 'Generator'),
         chassisNumber varchar(50),
         engineNumber varchar(50),
@@ -89,7 +89,7 @@ let createTaxTable = `create table if not exists taxes(
         insuranceCompany text,
         insuredAmount int(20),
         remarks text,
-        createdDate varchar(255)
+        createdDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )`;
 
 //  <------Tax Information Table--------> //

@@ -28,7 +28,7 @@ const updateTaxInformation = (connection, data, id, callback) => {
     connection.query(`update taxes SET ? where id = ${id}`, [data], callback)
 };
 
-const deleteVehicle = (connection, id, callback) => {
+const deleteTaxInformation = (connection, id, callback) => {
     connection.query(`
         delete from taxes where id= ${id}`, callback)
 };
@@ -38,7 +38,7 @@ module.exports = {
     fetchAllTaxInformation: fetchAllTaxInformation,
     fetchAllTaxInformationWithCriteria: fetchAllTaxInformationWithCriteria,
     fetchTaxInformationById: fetchTaxInformationById,
-    deleteVehicle: deleteVehicle,
+    deleteTaxInformation: deleteTaxInformation,
     updateTaxInformation: updateTaxInformation
 };
 

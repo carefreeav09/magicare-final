@@ -25,3 +25,8 @@ export const AsyncVehicle = loadable({
     loader : () => import(`../Vehicles/`),
     loading: LoadingComponent
 });
+
+export const AsyncInventory = loadable({
+    loader : () => import(`../Inventory/`),
+    loading: LoadingComponent
+});

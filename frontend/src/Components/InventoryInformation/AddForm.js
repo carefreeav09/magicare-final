@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import NepaliDatePicker from "react-datepicker-nepali";
 import moment from "moment";
 import {Form, Switch, Button, Breadcrumb, Icon} from "antd";
@@ -8,6 +8,7 @@ import {isEmpty} from "../../Utilities/commonUtil";
 const AddForm = (props) => {
     const {form, addVehicles, vehiclesErrors} = props;
     const {getFieldDecorator, validateFields, getFieldValue, setFieldsValue, resetFields} = form;
+    const [isDatePickerUpdated, setIsDatePickerUpdated] = useState(false);
     const nullDate = null;
 
     const formItemLayout = {
@@ -76,14 +77,13 @@ const AddForm = (props) => {
         })
     };
 
-    const handleReset = () => {
-        resetFields()
+    const handleIsDatePickerUpdated = () => {
+        const container = document.getElementsByClassName('input-calendar')[0];
+        container.children && container.children[0].classList.add('date-picker-selected');
     };
 
-    const handleIsServicingDateUpdated = () => {
-        const container = document.getElementById('servicingDatePicker');
-        let servicingDatePicker = container.children[0].children;
-        servicingDatePicker && servicingDatePicker[0].classList.add('date-picker-selected');
+    const handleReset = () => {
+        resetFields()
     };
 
     return (
@@ -91,18 +91,18 @@ const AddForm = (props) => {
             {!isEmpty(vehiclesErrors) && <h6 className={'red white-text w-100'}>{vehiclesErrors}</h6>}
             <div className="row">
                 <div className="col-md-4">
-                    <h4 className={'text-primary'}>Add Vehicle Information</h4>
+                    <h4 className={'text-primary'}>Add Inventory Information</h4>
                 </div>
                 <div className="col-md-8 text-right">
                     <Breadcrumb separator="/">
                         <Breadcrumb.Item>
                             <Link to={'/dashboard'}>
                                 {' '}
-                                <Icon type="dashboard"/> Dashboard
+                                <Icon type="dashboard" /> Dashboard
                             </Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            <Link to={'/vehicles/'}>Vehicles Information</Link>
+                            <Link to={'/inventories/'}>Inventory Information</Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>Add</Breadcrumb.Item>
                     </Breadcrumb>
@@ -117,21 +117,19 @@ const AddForm = (props) => {
                         <div className="row">
                             <div className="col-md-4 mb-2">
                                 <Form.Item {...formItemLayout} label={'Servicing Date'}>
-                                    <div id={'servicingDatePicker'}>
-                                        {getFieldDecorator('servicingDate', {
-                                            rules: [
-                                                {
-                                                    required: true,
-                                                    message: 'Servicing Date is required'
-                                                }
-                                            ]
-                                        })(
-                                            <NepaliDatePicker
-                                                id={'servicingDatePicker'}
-                                                onChange={() => handleIsServicingDateUpdated()}
-                                            />
-                                        )}
-                                    </div>
+                                    {getFieldDecorator('servicingDate', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'Servicing Date is required'
+                                            }
+                                        ]
+                                    })(
+                                        <NepaliDatePicker
+                                            id={'servicingDatePicker'}
+                                            onChange={()=>handleIsDatePickerUpdated()}
+                                        />
+                                    )}
                                 </Form.Item>
                             </div>
 
@@ -517,7 +515,7 @@ const AddForm = (props) => {
                                             }
                                         ]
                                     })(
-                                        <textarea className={'form-control'}/>
+                                        <textarea className={'form-control'} />
                                     )}
                                 </Form.Item>
                             </div>

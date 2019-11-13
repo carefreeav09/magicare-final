@@ -3,11 +3,11 @@ const router = express.Router();
 
 const TaxController = require('../controller/TaxController');
 
-// router.get('/', VehicleController.fetchVehicles);
-// router.post('/create', VehicleController.addVehicleInfo);
+router.get('/', TaxController.fetchAllTaxInformation);
+router.post('/create', TaxController.addTaxInformation);
 router.post('/search', TaxController.fetchAllTaxInformationWithCriteria);
-// router.get('/:id', VehicleController.fetchVehiclesById);
-// router.put('/update/:id', VehicleController.updateVehicles);
-// router.delete('/delete/:id', VehicleController.destroyVehicles);
+router.get('/:id', TaxController.fetchTaxInformationById);
+router.put('/update/:id', TaxController.updateTaxInformation);
+router.delete('/delete/:id', TaxController.deleteTaxInformation);
 
 module.exports = router;

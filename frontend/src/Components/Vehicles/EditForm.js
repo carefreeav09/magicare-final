@@ -6,7 +6,7 @@ import {withRouter, Link} from "react-router-dom";
 import {isEmpty} from "../../Utilities/commonUtil";
 
 const EditForm = (props) => {
-    const {form, updateVehicles, vehiclesErrors, vehicleCleanRequest, fetchVehiclesByIdentifier, match, vehicles } = props;
+    const {form, updateVehicles, vehiclesErrors, vehicleCleanRequest, fetchVehiclesByIdentifier, match, vehicles} = props;
     const {getFieldDecorator, validateFields, getFieldValue, setFieldsValue, resetFields} = form;
     const nullDate = null;
 
@@ -76,17 +76,17 @@ const EditForm = (props) => {
         })
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         setFieldsValue({
-            [`airFilter`] : !!(vehicles && vehicles.airFilter === 1),
-            [`pilotFilter`] : !!(vehicles && vehicles.pilotFilter === 1),
-            [`hydraulicFilter`] : !!(vehicles && vehicles.hydraulicFilter === 1),
-            [`coolantFilter`] : !!(vehicles && vehicles.coolantFilter === 1),
-            [`transmissionFilter`] : !!(vehicles && vehicles.transmissionFilter === 1),
-            [`waterSafety`] : !!(vehicles && vehicles.waterSafety === 1),
-            [`breather`] : !!(vehicles && vehicles.breather === 1),
-            [`spareParts`] : !!(vehicles && vehicles.spareParts === 1),
-            [`dieselFilter`] : !!(vehicles && vehicles.dieselFilter === 1),
+            [`airFilter`]: !!(vehicles && vehicles.airFilter === 1),
+            [`pilotFilter`]: !!(vehicles && vehicles.pilotFilter === 1),
+            [`hydraulicFilter`]: !!(vehicles && vehicles.hydraulicFilter === 1),
+            [`coolantFilter`]: !!(vehicles && vehicles.coolantFilter === 1),
+            [`transmissionFilter`]: !!(vehicles && vehicles.transmissionFilter === 1),
+            [`waterSafety`]: !!(vehicles && vehicles.waterSafety === 1),
+            [`breather`]: !!(vehicles && vehicles.breather === 1),
+            [`spareParts`]: !!(vehicles && vehicles.spareParts === 1),
+            [`dieselFilter`]: !!(vehicles && vehicles.dieselFilter === 1),
         })
     }, [vehicles]);
 
@@ -94,10 +94,17 @@ const EditForm = (props) => {
         resetFields()
     };
 
-    useEffect(()=>{
+    const handleIsServicingDateUpdated = () => {
+        const container = document.getElementById('servicingDatePicker');
+        let servicingDatePicker = container.children[0].children;
+        servicingDatePicker && servicingDatePicker[0].classList.add('date-picker-selected');
+    };
+
+    useEffect(() => {
         vehicleCleanRequest();
+        handleIsServicingDateUpdated();
         fetchVehiclesByIdentifier(match.params.id);
-    },[])
+    }, []);
 
     return (
         <div className={'container-fluid p-5'}>
@@ -111,7 +118,7 @@ const EditForm = (props) => {
                         <Breadcrumb.Item>
                             <Link to={'/dashboard'}>
                                 {' '}
-                                <Icon type="dashboard" /> Dashboard
+                                <Icon type="dashboard"/> Dashboard
                             </Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
@@ -130,18 +137,20 @@ const EditForm = (props) => {
                         <div className="row">
                             <div className="col-md-4 mb-2">
                                 <Form.Item {...formItemLayout} label={'Servicing Date'}>
-                                    {getFieldDecorator('servicingDate', {
-                                        initialValue: vehicles && vehicles.servicingDate,
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Servicing Date is required'
-                                            }
-                                        ]
-                                    })(
-                                        <NepaliDatePicker
-                                            className='w-50'/>
-                                    )}
+                                    <div id={'servicingDatePicker'}>
+                                        {getFieldDecorator('servicingDate', {
+                                            initialValue: vehicles && vehicles.servicingDate,
+                                            rules: [
+                                                {
+                                                    required: true,
+                                                    message: 'Servicing Date is required'
+                                                }
+                                            ]
+                                        })(
+                                            <NepaliDatePicker
+                                                className='w-50'/>
+                                        )}
+                                    </div>
                                 </Form.Item>
                             </div>
 
@@ -294,7 +303,7 @@ const EditForm = (props) => {
                             <div className="col-md-4 mb-2">
                                 <Form.Item {...formItemLayout} label={'Tyres'}>
                                     {getFieldDecorator('tyres', {
-                                        initialValue: vehicles && vehicles.tyres ,
+                                        initialValue: vehicles && vehicles.tyres,
                                         rules: [
                                             {
                                                 required: true,
@@ -563,7 +572,7 @@ const EditForm = (props) => {
                                             }
                                         ]
                                     })(
-                                        <textarea className={'form-control'} />
+                                        <textarea className={'form-control'}/>
                                     )}
                                 </Form.Item>
                             </div>
