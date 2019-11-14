@@ -2,34 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Detail from '../../Components/InventoryInformation/Detail';
-import * as vehiclesService from '../../Services/vehiclesService';
-import * as vehiclesAction from '../../Actions/vehiclesAction';
+import * as inventoriesService from '../../Services/inventoriesService';
+import * as inventoryAction from '../../Actions/inventoryAction';
 import {bindActionCreators} from "redux";
 
 export class DetailContainer extends Component {
 
     /**
-     * Fetch vehicle information by Identifier
-     * @params id
+     * Fetch inventory information by Identifier
+     * @params {formData}
      *
      */
-    fetchVehiclesByIdentifier = (id) => {
-        this.props.actions.fetchVehiclesByIdentifier(id);
+    fetchInventoryByIdentifier = (formData) => {
+        this.props.actions.fetchInventoryByIdentifier(formData);
     };
 
     /**
-     * clean all vehicle records..
+     * clean all inventory records..
      *
      */
-    vehicleCleanRequest = () => {
-        this.props.actions.vehicleCleanRequest();
+    inventoryCleanRequest = () => {
+        this.props.actions.inventoryCleanRequest();
     };
 
     render() {
         return (
             <Detail
-                vehicleCleanRequest={this.vehicleCleanRequest}
-                fetchVehiclesByIdentifier={this.fetchVehiclesByIdentifier}
+                inventoryCleanRequest={this.inventoryCleanRequest}
+                fetchInventoryByIdentifier={this.fetchInventoryByIdentifier}
                 {...this.props}
             />
         );
@@ -37,14 +37,14 @@ export class DetailContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    vehicles: state.vehicles.payload,
-    vehiclesLoading: state.vehicles.loading,
-    vehiclesErrors : state.vehicles.errors
+    inventories: state.inventories.payload,
+    inventoriesLoading: state.inventories.loading,
+    inventoriesErrors : state.inventories.errors
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(Object.assign({}, vehiclesService, vehiclesAction), dispatch),
+        actions: bindActionCreators(Object.assign({}, inventoriesService, inventoryAction), dispatch),
     };
 };
 

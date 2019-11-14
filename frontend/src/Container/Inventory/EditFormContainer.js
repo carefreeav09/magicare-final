@@ -1,45 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {bindActionCreators} from "redux";
 
 import EditForm from '../../Components/InventoryInformation/EditForm';
-import * as vehiclesService from '../../Services/vehiclesService';
-import * as vehiclesAction from '../../Actions/vehiclesAction';
-import {bindActionCreators} from "redux";
+import * as inventoriesService from '../../Services/inventoriesService';
+import * as inventoryAction from '../../Actions/inventoryAction';
 
 export class EditFormContainer extends Component {
 
     /**
-     * Fetch vehicle information by Identifier
+     * Fetch inventory information by Identifier
      * @params {formData}
      *
      */
-    fetchVehiclesByIdentifier = (formData) => {
-        this.props.actions.fetchVehiclesByIdentifier(formData);
+    fetchInventoryByIdentifier = (formData) => {
+        this.props.actions.fetchInventoryByIdentifier(formData);
     };
 
     /**
-     * Update vehicle information.
+     * Update inventory information.
      * @params {formData}
      *
      */
-    updateVehicles = (formData) => {
-        this.props.actions.updateVehicles(formData);
+    updateInventory = (formData) => {
+        this.props.actions.updateInventory(formData);
     };
 
     /**
-     * clean all vehicle records..
+     * clean all inventory records..
      *
      */
-    vehicleCleanRequest = () => {
-        this.props.actions.vehicleCleanRequest();
+    inventoryCleanRequest = () => {
+        this.props.actions.inventoryCleanRequest();
     };
 
     render() {
         return (
             <EditForm
-                vehicleCleanRequest={this.vehicleCleanRequest}
-                updateVehicles={this.updateVehicles}
-                fetchVehiclesByIdentifier={this.fetchVehiclesByIdentifier}
+                inventoryCleanRequest={this.inventoryCleanRequest}
+                updateInventory={this.updateInventory}
+                fetchInventoryByIdentifier={this.fetchInventoryByIdentifier}
                 {...this.props}
             />
         );
@@ -47,14 +47,14 @@ export class EditFormContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    vehicles: state.vehicles.payload,
-    vehiclesLoading: state.vehicles.loading,
-    vehiclesErrors : state.vehicles.errors
+    inventories: state.inventories.payload,
+    inventoriesLoading: state.inventories.loading,
+    inventoriesErrors : state.inventories.errors
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(Object.assign({}, vehiclesService, vehiclesAction), dispatch),
+        actions: bindActionCreators(Object.assign({}, inventoriesService, inventoryAction), dispatch),
     };
 };
 

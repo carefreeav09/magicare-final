@@ -1,41 +1,21 @@
 import React, {useEffect} from 'react';
-import {isEmpty} from "../../Utilities/commonUtil";
 import {Breadcrumb, Button, Form, Icon, Switch} from "antd";
 import {Link} from "react-router-dom";
-import NepaliDatePicker from "react-datepicker-nepali";
 
 const Detail = props => {
-    const {vehicles, vehiclesErrors, vehiclesLoading, fetchVehiclesByIdentifier, vehicleCleanRequest, match} = props;
+    const {form,  fetchInventoryByIdentifier, inventories,inventoryCleanRequest, inventoriesErrors, match} = props;
 
     useEffect(()=>{
-        vehicleCleanRequest();
-        let vehiclesId = match.params.id;
-        fetchVehiclesByIdentifier(vehiclesId && vehiclesId);
+        inventoryCleanRequest();
+        let inventoriesId = match.params.id;
+        fetchInventoryByIdentifier(inventoriesId && inventoriesId);
 
         return ()=>{
-            vehicleCleanRequest();
+            inventoryCleanRequest();
         }
     }, []);
 
     const formItemLayout = {
-        labelCol: {
-            xl: {span: 14},
-            lg: {span: 14},
-            md: {span: 14},
-            sm: {span: 14},
-            xs: {span: 24},
-        },
-        wrapperCol: {
-            xl: {span: 10},
-            lg: {span: 10},
-            md: {span: 10},
-            sm: {span: 10},
-            xs: {span: 24},
-        },
-        labelAlign: 'left',
-    };
-
-    const formItemLayoutSwitch = {
         labelCol: {
             xl: {span: 24},
             lg: {span: 24},
@@ -75,7 +55,7 @@ const Detail = props => {
         <div className={'container-fluid p-5'}>
             <div className="row">
                 <div className="col-md-6">
-                    <h4 className={'text-primary'}>View Details for ${vehicles && vehicles.vehicleNumber}</h4>
+                    <h4 className={'text-primary'}>View Details for {inventories && inventories.product}</h4>
                 </div>
                 <div className="col-md-6 text-right">
                     <Breadcrumb separator="/">
@@ -86,7 +66,7 @@ const Detail = props => {
                             </Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            <Link to={'/vehicles/'}>Vehicles Information</Link>
+                            <Link to={'/inventories/'}>Inventory Information</Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>Detail</Breadcrumb.Item>
                     </Breadcrumb>
@@ -98,213 +78,80 @@ const Detail = props => {
                             Basic Information
                         </h6>
                         <div className="row">
-                            {console.log(vehicles && vehicles)}
                             <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Servicing Date'}>
+                                <Form.Item {...formItemLayout} label={'Product'}>
                                     <strong>
-                                        {vehicles && vehicles.servicingDate}
+                                        {inventories && inventories.product}
                                     </strong>
                                 </Form.Item>
                             </div>
 
                             <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Vehicle Prefix'}>
-                                    <strong>{vehicles && vehicles.vehiclePrefix}
+                                <Form.Item {...formItemLayout} label={'Price'}>
+                                    <strong>{inventories && inventories.price}
                                     </strong>
                                 </Form.Item>
                             </div>
 
                             <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Vehicle Number'}>
-                                    {vehicles && vehicles.vehicleNumber}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Vehicle Type'}>
+                                <Form.Item {...formItemLayout} label={'Supplier Information'}>
                                     <strong>
-                                        {vehicles && vehicles.vehicleType}
+                                        {inventories && inventories.supplierInformation}
                                     </strong>
                                 </Form.Item>
                             </div>
 
                             <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Worked Hours'}>
+                                <Form.Item {...formItemLayout} label={'Stored Location'}>
                                     <strong>
-                                        {vehicles && vehicles.workedHours}
+                                        {inventories && inventories.storedLocation}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3">
+                                <Form.Item {...formItemLayout} label={'Status'}>
+                                    <strong>
+                                        {inventories && inventories.status}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3">
+                                <Form.Item {...formItemLayout} label={'Used In'}>
+                                    <strong>
+                                        {inventories && inventories.usedIn}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3">
+                                <Form.Item {...formItemLayout} label={'Serial Number'}>
+                                    <strong>
+                                        {inventories && inventories.serialNumber}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3">
+                                <Form.Item {...formItemLayout} label={'Added date'}>
+                                    <strong>
+                                        {inventories && inventories.dateAdded}
                                     </strong>
                                 </Form.Item>
                             </div>
                         </div>
 
-                        <h6 className={'text-success'}>
-                            Parts Information
-                        </h6>
-                        <div className="row">
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Mobil'}>
-                                    <strong>
-                                        {vehicles && vehicles.mobil}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Mobil Filter Count'}>
-                                    <strong>
-                                        {vehicles && vehicles.mobilFilter}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Engine Repair'}>
-                                    <strong>
-                                        {vehicles && vehicles.engineRepair}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Tyres'}>
-                                    <strong>
-                                        {vehicles && vehicles.tyres}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Tubes'}>
-                                    <strong>
-                                        {vehicles && vehicles.tubes}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Transmission Oil'}>
-                                    <strong>
-                                        {vehicles && vehicles.transmissionOil}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Hydraulic'}>
-                                    <strong>
-                                        {vehicles && vehicles.hydraulic}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Coolant Water'}>
-                                    <strong>
-                                        <strong>
-                                            {vehicles && vehicles.coolantWater}
-                                        </strong>
-                                    </strong>
-                                </Form.Item>
-                            </div>
+                    <h6>Other Information</h6>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <Form.Item {...formItemRemarks} label={'Remarks'}>
+                                <strong>
+                                    {inventories && inventories.remarks}
+                                </strong>
+                            </Form.Item>
                         </div>
-
-                        <h6 className={'text-success'}>
-                            Has Parts Changed?
-                        </h6>
-                        <div className="row">
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Air Filter'}>
-                                    <strong>
-                                        <strong>
-                                            {vehicles && vehicles.airFilter ? 'Yes' : 'No'}
-                                        </strong>
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Pilot Filter'}>
-                                    <strong>
-                                        {vehicles && vehicles.pilotFilter ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Hydraulic Filter'}>
-                                    <strong>
-                                        {vehicles && vehicles.hydraulicFilter ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Coolant Filter'}>
-                                    <strong>
-                                        {vehicles && vehicles.coolantFilter ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Transmission Filter'}>
-                                    <strong>
-                                        {vehicles && vehicles.transmissionFilter ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Water Safety'}>
-                                    <strong>
-                                        {vehicles && vehicles.waterSafety ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Breather'}>
-                                    <strong>
-                                        {vehicles && vehicles.breather ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Spare Parts'}>
-                                    <strong>
-                                        {vehicles && vehicles.spareParts ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Diesel filter'}>
-                                    <strong>
-                                        {vehicles && vehicles.dieselFilter ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-                        </div>
-
-                        <h6>Other Information</h6>
-                        <div className="row">
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Total Cost'}>
-                                    <strong>
-                                        {vehicles && vehicles.totalCost}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-8">
-                                <Form.Item {...formItemRemarks} label={'Remarks'}>
-                                    <strong>
-                                        {vehicles && vehicles.remarks}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -3,7 +3,8 @@ import NepaliDatePicker from "react-datepicker-nepali";
 import moment from "moment";
 import {Form, Switch, Button, Breadcrumb, Icon} from "antd";
 import {withRouter, Link} from "react-router-dom";
-import {isEmpty} from "../../Utilities/commonUtil";
+import { isEmpty} from "../../Utilities/commonUtil";
+import {convertADtoBS} from "../../Utilities/commonUtil";
 
 const AddForm = (props) => {
     const {form, addVehicles, vehiclesErrors} = props;
@@ -70,9 +71,29 @@ const AddForm = (props) => {
     const handleSubmit = e => {
         e.preventDefault();
         validateFields((err, values) => {
-            if (!err) {
+            console.log(convertADtoBS('2019', '11', '14'));
+                let selectedValues = values.vehicleType;
+                switch (selectedValues) {
+                    case "Scooter":
+                    case "Bike":
+                    case "Car":
+                    case "Jeep":
+                    case "Pickup":
+                    case "Tipper":
+                        values.exipryDate = moment(values.servicingDate, "L").add(90, "days").format('L');
+                        break;
+
+                    case "Heavy":
+                    case "Generator":
+                        values.exipryDate = moment(values.servicingDate, "L").add(60, "days").format('L');
+                        break;
+
+                    default:
+                        values.expiryDate = null;
+                }
+                values.vehiclePrefix  = values.vehiclePrefix.toUpperCase();
                 addVehicles(values);
-            }
+
         })
     };
 

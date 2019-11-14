@@ -1,14 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import NepaliDatePicker from "react-datepicker-nepali";
 import moment from "moment";
-import {Form, Switch, Button, Breadcrumb, Icon, Input} from "antd";
+import {Form, Switch, Button, Breadcrumb, Icon, Input, Select} from "antd";
 import {withRouter, Link} from "react-router-dom";
-import {isEmpty} from "../../Utilities/commonUtil";
+import {convertToPascalCase, isEmpty} from "../../Utilities/commonUtil";
 
 const EditForm = (props) => {
-    const {form, updateVehicles, vehiclesErrors, vehicleCleanRequest, fetchVehiclesByIdentifier, match, vehicles } = props;
+    const {form, updateInventory, fetchInventoryByIdentifier, inventories, inventoriesErrors, match} = props;
     const {getFieldDecorator, validateFields, getFieldValue, setFieldsValue, resetFields} = form;
-    const nullDate = null;
 
     const formItemLayout = {
         labelCol: {
@@ -31,17 +30,17 @@ const EditForm = (props) => {
 
     const formItemLayoutSwitch = {
         labelCol: {
-            xl: {span: 18},
-            lg: {span: 18},
-            md: {span: 18},
-            sm: {span: 18},
-            xs: {span: 24},
+            xl: {span: 16},
+            lg: {span: 16},
+            md: {span: 16},
+            sm: {span: 16},
+            xs: {span: 16},
         },
         wrapperCol: {
-            xl: {span: 6},
-            lg: {span: 6},
-            md: {span: 6},
-            sm: {span: 6},
+            xl: {span: 8},
+            lg: {span: 8},
+            md: {span: 8},
+            sm: {span: 8},
             xs: {span: 24},
         },
         labelAlign: 'left',
@@ -50,17 +49,17 @@ const EditForm = (props) => {
 
     const formItemRemarks = {
         labelCol: {
-            xl: {span: 6},
-            lg: {span: 6},
-            md: {span: 6},
-            sm: {span: 6},
+            xl: {span: 3},
+            lg: {span: 3},
+            md: {span: 3},
+            sm: {span: 3},
             xs: {span: 24},
         },
         wrapperCol: {
-            xl: {span: 18},
-            lg: {span: 18},
-            md: {span: 18},
-            sm: {span: 18},
+            xl: {span: 21},
+            lg: {span: 21},
+            md: {span: 21},
+            sm: {span: 21},
             xs: {span: 24},
         },
         labelAlign: 'left',
@@ -71,40 +70,42 @@ const EditForm = (props) => {
         e.preventDefault();
         validateFields((err, values) => {
             if (!err) {
-                updateVehicles(values);
+                let formData = {};
+                formData.id = values.id;
+                formData.product = convertToPascalCase(values.product);
+                formData.price = values.price;
+                formData.supplierInformation = values.supplierInformation;
+                formData.storedLocation = convertToPascalCase(values.storedLocation);
+                formData.status = convertToPascalCase(values.status);
+                formData.usedIn = convertToPascalCase(values.usedIn);
+                formData.remarks = convertToPascalCase(values.remarks);
+                formData.dateAdded = values.dateAdded;
+                formData.serialNumber = values.serialNumber.toUpperCase();
+                updateInventory(formData);
             }
         })
     };
 
-    useEffect(()=>{
-        setFieldsValue({
-            [`airFilter`] : !!(vehicles && vehicles.airFilter === 1),
-            [`pilotFilter`] : !!(vehicles && vehicles.pilotFilter === 1),
-            [`hydraulicFilter`] : !!(vehicles && vehicles.hydraulicFilter === 1),
-            [`coolantFilter`] : !!(vehicles && vehicles.coolantFilter === 1),
-            [`transmissionFilter`] : !!(vehicles && vehicles.transmissionFilter === 1),
-            [`waterSafety`] : !!(vehicles && vehicles.waterSafety === 1),
-            [`breather`] : !!(vehicles && vehicles.breather === 1),
-            [`spareParts`] : !!(vehicles && vehicles.spareParts === 1),
-            [`dieselFilter`] : !!(vehicles && vehicles.dieselFilter === 1),
-        })
-    }, [vehicles]);
+    const handleIsAddedDateUpdated = () => {
+        const container = document.getElementById('dateAdded');
+        let servicingDatePicker = container.children[0].children;
+        servicingDatePicker && servicingDatePicker[0].classList.add('date-picker-selected');
+    };
 
     const handleReset = () => {
         resetFields()
     };
 
     useEffect(()=>{
-        vehicleCleanRequest();
-        fetchVehiclesByIdentifier(match.params.id);
-    },[])
+        fetchInventoryByIdentifier(match.params.id);
+    }, [])
 
     return (
         <div className={'container-fluid p-5'}>
-            {!isEmpty(vehiclesErrors) && <h6 className={'red white-text w-100'}>{vehiclesErrors}</h6>}
+            {!isEmpty(inventoriesErrors) && <h6 className={'red white-text w-100 p-3'}>{inventoriesErrors}</h6>}
             <div className="row">
                 <div className="col-md-4">
-                    <h4 className={'text-primary'}>Update Vehicle Information</h4>
+                    <h4 className={'text-primary'}>Update Inventory Information for {inventories && inventories.product}</h4>
                 </div>
                 <div className="col-md-8 text-right">
                     <Breadcrumb separator="/">
@@ -115,9 +116,9 @@ const EditForm = (props) => {
                             </Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            <Link to={'/vehicles/'}>Vehicles Information</Link>
+                            <Link to={'/inventories/'}>Inventory Information</Link>
                         </Breadcrumb.Item>
-                        <Breadcrumb.Item>Update</Breadcrumb.Item>
+                        <Breadcrumb.Item>Add</Breadcrumb.Item>
                     </Breadcrumb>
                 </div>
             </div>
@@ -129,433 +130,154 @@ const EditForm = (props) => {
                         </h6>
                         <div className="row">
                             <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Servicing Date'}>
-                                    {getFieldDecorator('servicingDate', {
-                                        initialValue: vehicles && vehicles.servicingDate,
+                                <Form.Item {...formItemLayout} label={'Product Name'}>
+                                    {getFieldDecorator('product',{
+                                        initialValue: inventories && inventories.product,
                                         rules: [
                                             {
                                                 required: true,
-                                                message: 'Servicing Date is required'
+                                                message: 'Product Name is required'
                                             }
                                         ]
                                     })(
-                                        <NepaliDatePicker
-                                            className='w-50'/>
+                                        <Input className={'form-control'} />
                                     )}
                                 </Form.Item>
                             </div>
 
                             <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Vehicle Prefix'}>
-                                    {getFieldDecorator('vehiclePrefix', {
-                                        initialValue: vehicles && vehicles.vehiclePrefix,
+                                <Form.Item {...formItemLayout} label={'Price'}>
+                                    {getFieldDecorator('price', {
+                                        initialValue: inventories && inventories.price,
                                         rules: [
                                             {
                                                 required: true,
-                                                message: 'Vehicle Prefix is required'
+                                                message: 'Price is required'
                                             }
                                         ]
                                     })(
-                                        <Input type="text" className="form-control"/>
+                                        <input type="number" className="form-control"/>
                                     )}
                                 </Form.Item>
 
                                 <Form.Item>
                                     {getFieldDecorator('id', {
-                                        initialValue: vehicles && vehicles.id,
+                                        initialValue: inventories && inventories.id,
                                     })(
-                                        <Input hidden disabled/>
+                                        <input type="hidden"/>
                                     )}
                                 </Form.Item>
                             </div>
 
                             <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Vehicle Number'}>
-                                    {getFieldDecorator('vehicleNumber', {
-                                        initialValue: vehicles && vehicles.vehicleNumber,
+                                <Form.Item {...formItemLayout} label={'Supplier Information'}>
+                                    {getFieldDecorator('supplierInformation', {
+                                        initialValue: inventories && inventories.supplierInformation,
                                         rules: [
                                             {
                                                 required: true,
-                                                message: 'Vehicle Number is required'
+                                                message: 'Supplier Information is required'
                                             }
                                         ]
                                     })(
-                                        <input type="number" className="form-control"/>
+                                        <Input className={'form-control'}/>
                                     )}
                                 </Form.Item>
                             </div>
 
                             <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Vehicle Type'}>
-                                    {getFieldDecorator('vehicleType', {
-                                        initialValue: vehicles && vehicles.vehicleType,
+                                <Form.Item {...formItemLayout} label={'Stored Location'}>
+                                    {getFieldDecorator('storedLocation', {
+                                        initialValue: inventories && inventories.storedLocation,
                                         rules: [
                                             {
                                                 required: true,
-                                                message: 'Vechile Type is required'
+                                                message: 'Stored Location is required'
                                             }
                                         ]
                                     })(
-                                        <select className="browser-default custom-select">
-                                            <option selected disabled value="">-</option>
-                                            <option value="Bike">Bike</option>
-                                            <option value="Car">Car</option>
-                                            <option value="Scooter">Scooter</option>
-                                            <option value="Jeep">Jeep</option>
-                                            <option value="Pickup">Pickup</option>
-                                            <option value="Tipper">Tipper</option>
-                                            <option value="Heavy">Heavy</option>
-                                            <option value="Generator">Generator</option>
-                                        </select>
+                                        <Input className="form-control"/>
                                     )}
                                 </Form.Item>
                             </div>
 
                             <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Worked Hours'}>
-                                    {getFieldDecorator('workedHours', {
-                                        initialValue: vehicles && vehicles.workedHours,
+                                <Form.Item {...formItemLayout} label={'Status'}>
+                                    {getFieldDecorator('status', {
+                                        initialValue: inventories && inventories.status,
                                         rules: [
                                             {
                                                 required: true,
-                                                message: 'Worked Hours is required'
+                                                message: 'Status is required'
                                             }
                                         ]
                                     })(
-                                        <input type="number" className="form-control"/>
-                                    )}
-                                </Form.Item>
-                            </div>
-                        </div>
-
-                        <h6 className={'text-success'}>
-                            Parts Information
-                        </h6>
-                        <div className="row">
-                            <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Mobil'}>
-                                    {getFieldDecorator('mobil', {
-                                        initialValue: vehicles && vehicles.mobil,
-
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Mobil is required'
-                                            }
-                                        ]
-                                    })(
-                                        <input type="number" className="form-control"/>
+                                        <Select >
+                                            <option value={'deployed'}>Deployed</option>
+                                            <option value={'used'}>Used</option>
+                                            <option value={'stored'}>Stored</option>
+                                        </Select>
                                     )}
                                 </Form.Item>
                             </div>
 
                             <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Mobil Filter Count'}>
-                                    {getFieldDecorator('mobilFilter', {
-                                        initialValue: vehicles && vehicles.mobilFilter,
+                                <Form.Item {...formItemLayout} label={'Used in'}>
+                                    {getFieldDecorator('usedIn', {
+                                        initialValue: inventories && inventories.usedIn,
                                         rules: [
                                             {
                                                 required: true,
-                                                message: 'Mobil Filter Count is required'
+                                                message: 'Used In is required'
                                             }
                                         ]
                                     })(
-                                        <select className="browser-default custom-select">
-                                            <option value="" disabled selected>-</option>
-                                            <option value="0">0</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                        </select>
+                                        <Input className="form-control"/>
                                     )}
                                 </Form.Item>
                             </div>
 
                             <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Engine Repair'}>
-                                    {getFieldDecorator('engineRepair', {
-                                        initialValue: vehicles && vehicles.engineRepair,
+                                <Form.Item {...formItemLayout} label={'Serial Number'}>
+                                    {getFieldDecorator('serialNumber', {
+                                        initialValue: inventories && inventories.serialNumber,
                                         rules: [
                                             {
                                                 required: true,
-                                                message: 'Engine Repair is required'
+                                                message: 'Serial Number is required'
                                             }
                                         ]
                                     })(
-                                        <select className="browser-default custom-select">
-                                            <option value="" disabled selected>-</option>
-                                            <option value="none">None</option>
-                                            <option value="full">Full</option>
-                                            <option value="half">Half</option>
-                                        </select>
+                                        <Input className="form-control"/>
                                     )}
                                 </Form.Item>
                             </div>
 
                             <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Tyres'}>
-                                    {getFieldDecorator('tyres', {
-                                        initialValue: vehicles && vehicles.tyres ,
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Tyres is required'
-                                            }
-                                        ]
-                                    })(
-                                        <input type="number" className="form-control"/>
-                                    )}
+                                <Form.Item {...formItemLayout} label={'Added Date'}>
+                                    <div id={'dateAdded'}>
+                                        {getFieldDecorator('dateAdded', {
+                                            initialValue: inventories && inventories.dateAdded,
+                                            rules: [
+                                                {
+                                                    required: true,
+                                                    message: 'Added Date is required'
+                                                }
+                                            ]
+                                        })(
+                                            <NepaliDatePicker
+                                                id={'dateAdded'}
+                                                onChange={() => handleIsAddedDateUpdated()}
+                                            />
+                                        )}
+                                    </div>
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Tubes'}>
-                                    {getFieldDecorator('tubes', {
-                                        initialValue: vehicles && vehicles.tubes,
-
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Tubes is required'
-                                            }
-                                        ]
-                                    })(
-                                        <input type="number" className="form-control"/>
-                                    )}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Transmission Oil'}>
-                                    {getFieldDecorator('transmissionOil', {
-                                        initialValue: vehicles && vehicles.transmissionOil,
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Transmission Oil is required'
-                                            }
-                                        ]
-                                    })(
-                                        <input type="number" className="form-control"/>
-                                    )}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Hydraulic'}>
-                                    {getFieldDecorator('hydraulic', {
-                                        initialValue: vehicles && vehicles.hydraulic,
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Hydraulic is required'
-                                            }
-                                        ]
-                                    })(
-                                        <input type="number" className="form-control"/>
-                                    )}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Coolant Water'}>
-                                    {getFieldDecorator('coolantWater', {
-                                        initialValue: vehicles && vehicles.coolantWater,
-
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Coolant Water is required'
-                                            }
-                                        ]
-                                    })(
-                                        <input type="number" className="form-control"/>
-                                    )}
-                                </Form.Item>
-                            </div>
-                        </div>
-
-                        <h6 className={'text-success'}>
-                            Has Parts Changed?
-                        </h6>
-                        <div className="row">
-                            <div className="col-md-2 mb-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Air Filter'}>
-                                    {getFieldDecorator('airFilter', {
-                                        valuePropName: 'checked',
-                                        initialValue: !!(vehicles && vehicles.airFilter === 1),
-
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Air Filter is required'
-                                            }
-                                        ]
-                                    })(
-                                        <Switch className={'add-form-switch'}/>
-                                    )}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2 mb-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Pilot Filter'}>
-                                    {getFieldDecorator('pilotFilter', {
-                                        initialValue: vehicles && vehicles.pilotFilter === '1',
-                                        valuePropName: 'checked',
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Pilot Filter is required'
-                                            }
-                                        ]
-                                    })(
-                                        <Switch className={'add-form-switch'}/>
-                                    )}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2 mb-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Hydraulic Filter'}>
-                                    {getFieldDecorator('hydraulicFilter', {
-                                        valuePropName: 'checked',
-                                        initialValue: !!(vehicles && vehicles.hydraulicFilter === '1'),
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Hydraulic Filter is required'
-                                            }
-                                        ]
-                                    })(
-                                        <Switch className={'add-form-switch'}/>
-                                    )}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2 mb-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Coolant Filter'}>
-                                    {getFieldDecorator('coolantFilter', {
-                                        valuePropName: 'checked',
-                                        initialValue: vehicles && vehicles.coolantFilter === '1',
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Coolant Filter is required'
-                                            }
-                                        ]
-                                    })(
-                                        <Switch className={'add-form-switch'}/>
-                                    )}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2 mb-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Transmission Filter'}>
-                                    {getFieldDecorator('transmissionFilter', {
-                                        initialValue: true,
-                                        valuePropName: 'checked',
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Transmission Filter is required'
-                                            }
-                                        ]
-                                    })(
-                                        <Switch className={'add-form-switch'}/>
-                                    )}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2 mb-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Water Safety'}>
-                                    {getFieldDecorator('waterSafety', {
-                                        initialValue: vehicles && vehicles.waterSafety === '1',
-                                        valuePropName: 'checked',
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Water Safety is required'
-                                            }
-                                        ]
-                                    })(
-                                        <Switch className={'add-form-switch'}/>
-                                    )}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2 mb-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Breather'}>
-                                    {getFieldDecorator('breather', {
-                                        initialValue: vehicles && vehicles.breather === '1',
-                                        valuePropName: 'checked',
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Breather is required'
-                                            }
-                                        ]
-                                    })(
-                                        <Switch className={'add-form-switch'}/>
-                                    )}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2 mb-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Spare Parts'}>
-                                    {getFieldDecorator('spareParts', {
-                                        initialValue: vehicles && vehicles.spareParts === '1',
-                                        valuePropName: 'checked',
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Spare Parts is required'
-                                            }
-                                        ]
-                                    })(
-                                        <Switch className={'add-form-switch'}/>
-                                    )}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2 mb-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Diesel filter'}>
-                                    {getFieldDecorator('dieselFilter', {
-                                        initialValue: vehicles && vehicles.dieselFilter === '1',
-                                        valuePropName: 'checked',
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Diesel filter is required'
-                                            }
-                                        ]
-                                    })(
-                                        <Switch className={'add-form-switch'}/>
-                                    )}
-                                </Form.Item>
-                            </div>
-                        </div>
-
-                        <h6>Other Information</h6>
-                        <div className="row">
-                            <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Total Cost'}>
-                                    {getFieldDecorator('totalCost', {
-                                        initialValue: vehicles && vehicles.totalCost,
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: 'Total Cost is required'
-                                            }
-                                        ]
-                                    })(
-                                        <input type={'number'} className={'form-control'}/>
-                                    )}
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-8 mb-2">
+                            <div className="col-md-12 mb-2">
                                 <Form.Item {...formItemRemarks} label={'Remarks'}>
                                     {getFieldDecorator('remarks', {
-                                        initialValue: vehicles && vehicles.remarks,
-
+                                        initialValue: inventories && inventories.remarks,
                                         rules: [
                                             {
                                                 required: true,
@@ -570,7 +292,7 @@ const EditForm = (props) => {
 
                             <div className="col-md-12">
                                 <Button htmlType={"submit"} className={'btn btn-success btn-sm'}>
-                                    Submit Information
+                                    Update Information
                                 </Button>
 
                                 <Button htmlType={"reset"} className={'btn btn-danger btn-sm'}>

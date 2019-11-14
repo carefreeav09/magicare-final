@@ -3,7 +3,7 @@ import NepaliDatePicker from "react-datepicker-nepali";
 import moment from "moment";
 import {Form, Switch, Button, Breadcrumb, Icon, Input, Select} from "antd";
 import {withRouter, Link} from "react-router-dom";
-import {isEmpty} from "../../Utilities/commonUtil";
+import {convertToPascalCase, isEmpty} from "../../Utilities/commonUtil";
 
 const AddForm = (props) => {
     const {form, addInventory, vehiclesErrors} = props;
@@ -70,7 +70,17 @@ const AddForm = (props) => {
         e.preventDefault();
         validateFields((err, values) => {
             if (!err) {
-                addInventory(values);
+                let formData = {};
+                formData.product = convertToPascalCase(values.product);
+                formData.price = values.price;
+                formData.supplierInformation = values.supplierInformation;
+                formData.storedLocation = convertToPascalCase(values.storedLocation);
+                formData.status = convertToPascalCase(values.status);
+                formData.usedIn = convertToPascalCase(values.usedIn);
+                formData.remarks = convertToPascalCase(values.remarks);
+                formData.dateAdded = values.dateAdded;
+                formData.serialNumber = values.serialNumber.toUpperCase();
+                addInventory(formData);
             }
         })
     };

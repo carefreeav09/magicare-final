@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import {Table, Form, Input, Select, Button} from 'antd'
-import {isEmpty} from "../../Utilities/commonUtil";
-import {inventoryCleanRequest} from "../../Actions/inventoryAction";
+import {convertToPascalCase} from "../../Utilities/commonUtil";
 
 const {Option} = Select;
 const FormItem = Form.Item
@@ -83,8 +82,12 @@ const List = props => {
         e.preventDefault();
         validateFields((err, values) => {
             let formData = {};
-            formData.vehicleType = values.vehicleType || null;
-            formData.vehicleNumber = values.vehicleNumber || null;
+            formData.product = values.product && convertToPascalCase(values.product) || null;
+            formData.price = values.price || null;
+            formData.supplierInformation = values.supplierInformation || null;
+            formData.storedLocation = values.storedLocation && convertToPascalCase(values.storedLocation) || null;
+            formData.status = values.status && convertToPascalCase(values.status) || null;
+            formData.usedIn = values.usedIn && convertToPascalCase(values.usedIn) || null;
             fetchInventoryWithCriteria(formData);
         })
     };
