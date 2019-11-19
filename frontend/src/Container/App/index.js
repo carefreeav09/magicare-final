@@ -13,7 +13,8 @@ import {
     AsyncDashboard,
     AsyncVehicle,
     AsyncSignUp,
-    AsyncInventory
+    AsyncInventory,
+    AsyncTaxes
 } from "./AsyncComponent";
 
 const App = () => (
@@ -25,6 +26,7 @@ const App = () => (
             <PrivateRoute component={AsyncDashboard} layout={AdminLayout} exact path='/dashboard' />
             <PrivateRoute component={AsyncVehicle} layout={AdminLayout} path='/vehicles' />
             <PrivateRoute component={AsyncInventory} layout={AdminLayout} path='/inventories' />
+            <PrivateRoute component={AsyncTaxes} layout={AdminLayout} path='/taxes' />
         </Switch>
     </div>
 );

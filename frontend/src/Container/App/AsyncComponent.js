@@ -30,3 +30,8 @@ export const AsyncInventory = loadable({
     loader : () => import(`../Inventory/`),
     loading: LoadingComponent
 });
+
+export const AsyncTaxes = loadable({
+    loader : () => import(`../TaxInformation/`),
+    loading: LoadingComponent
+});
