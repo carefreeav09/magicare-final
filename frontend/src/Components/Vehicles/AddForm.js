@@ -1,17 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import NepaliDatePicker from "react-datepicker-nepali";
 import moment from "moment";
 import {Form, Switch, Button, Breadcrumb, Icon} from "antd";
 import {withRouter, Link} from "react-router-dom";
 import { isEmpty} from "../../Utilities/commonUtil";
-import {convertADtoBS} from "../../Utilities/commonUtil";
 
 const AddForm = (props) => {
     const {form, addVehicles, vehiclesErrors} = props;
     const {getFieldDecorator, validateFields, resetFields} = form;
-    const [selectedDate, setSelectedDate] = useState(null);
-
-    let wrapperRef = null;
 
     const formItemLayout = {
         labelCol: {
@@ -157,7 +153,6 @@ const AddForm = (props) => {
                                 </Form.Item>
                             </div>
 
-                            {console.log(selectedDate)}
                             <div className="col-md-4 mb-2">
                                 <Form.Item {...formItemLayout} label={'Vehicle Prefix'}>
                                     {getFieldDecorator('vehiclePrefix', {

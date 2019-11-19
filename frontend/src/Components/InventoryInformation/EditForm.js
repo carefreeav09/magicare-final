@@ -7,7 +7,7 @@ import {convertToPascalCase, isEmpty} from "../../Utilities/commonUtil";
 
 const EditForm = (props) => {
     const {form, updateInventory, fetchInventoryByIdentifier, inventories, inventoriesErrors, match} = props;
-    const {getFieldDecorator, validateFields, getFieldValue, setFieldsValue, resetFields} = form;
+    const {getFieldDecorator, validateFields, getFieldValue, resetFields} = form;
 
     const formItemLayout = {
         labelCol: {

@@ -10,3 +10,4 @@ export const isEmpty = (obj) => {
 export const convertToPascalCase = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
 };
+

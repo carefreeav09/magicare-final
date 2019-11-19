@@ -3,11 +3,12 @@ import NepaliDatePicker from "react-datepicker-nepali";
 import {Form, Switch, Button, Breadcrumb, Icon, Input} from "antd";
 import {withRouter, Link} from "react-router-dom";
 import {isEmpty} from "../../Utilities/commonUtil";
+import DynamicDateHandler from "../Common/DateHolders/DynamicDateHandler";
+
 
 const EditForm = (props) => {
     const {form, updateVehicles, vehiclesErrors, vehicleCleanRequest, fetchVehiclesByIdentifier, match, vehicles} = props;
-    const {getFieldDecorator, validateFields, getFieldValue, setFieldsValue, resetFields} = form;
-    const nullDate = null;
+    const {getFieldDecorator, validateFields, setFieldsValue, resetFields} = form;
 
     const formItemLayout = {
         labelCol: {
@@ -93,9 +94,6 @@ const EditForm = (props) => {
         resetFields()
     };
 
-    const handleServicingDateChange = (event) => {
-        setFieldsValue({[`servicingDate`] : event});
-    };
 
     useEffect(() => {
         vehicleCleanRequest();
@@ -133,29 +131,14 @@ const EditForm = (props) => {
                         </h6>
                         <div className="row">
                             <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Servicing Date'}>
-                                    <div id={'servicingDatePicker'} className={'row'}>
-                                        <div className="col-md-10 pr-0">
-                                            {getFieldDecorator('servicingDate', {
-                                                initialValue: vehicles && vehicles.servicingDate,
-                                                rules: [
-                                                    {
-                                                        required: true,
-                                                        message: 'Servicing Date is required'
-                                                    }
-                                                ]
-                                            })(
-                                                <Input disabled className={'w-100'} />
-                                            )}
-                                        </div>
-                                        <div className="col-md-2 pl-0">
-                                            <NepaliDatePicker
-                                                id={'servicingDatePickerField'}
-                                                onChange={handleServicingDateChange}
-                                                className='w-100'/>
-                                        </div>
-                                    </div>
-                                </Form.Item>
+                                <DynamicDateHandler
+                                    formItemLayout={formItemLayout}
+                                    startingValue={vehicles && vehicles.servicingDate}
+                                    fieldName={'servicingDate'}
+                                    label={'Servicing Date'}
+                                    fieldNamePicker={'servicingDatePicker'}
+                                    {...props}
+                                />
                             </div>
 
                             <div className="col-md-4 mb-2">
