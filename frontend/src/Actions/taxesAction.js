@@ -14,87 +14,87 @@ import {
     TAX_UPDATE_REQUEST_SUCCESS
 } from "../Constants/actionTypes";
 
-export const taxAddRequest = () => {
+export const taxesAddRequest = () => {
     return {
         type: TAX_ADD_REQUEST,
     }
 };
 
-export const taxAddRequestSuccess = data => {
+export const taxesAddRequestSuccess = data => {
     return {
         type: TAX_ADD_REQUEST_SUCCESS,
         data
     }
 };
 
-export const taxAddRequestFailure = error => {
+export const taxesAddRequestFailure = error => {
     return {
         type: TAX_ADD_REQUEST_FAILURE,
         error
     }
 };
 
-export const taxFetchRequest = () => {
+export const taxesFetchRequest = () => {
     return {
         type: TAX_FETCH_REQUEST,
     }
 };
 
-export const taxFetchRequestSuccess = data => {
+export const taxesFetchRequestSuccess = data => {
     return {
         type: TAX_FETCH_REQUEST_SUCCESS,
         data
     }
 };
 
-export const taxFetchRequestFailure = error => {
+export const taxesFetchRequestFailure = error => {
     return {
         type: TAX_FETCH_REQUEST_FAILURE,
         error
     }
 };
 
-export const taxUpdateRequest = () => {
+export const taxesUpdateRequest = () => {
     return {
         type: TAX_UPDATE_REQUEST,
     }
 };
 
-export const taxUpdateRequestSuccess = data => {
+export const taxesUpdateRequestSuccess = data => {
     return {
         type: TAX_UPDATE_REQUEST_SUCCESS,
         data
     }
 };
 
-export const taxUpdateRequestFailure = error => {
+export const taxesUpdateRequestFailure = error => {
     return {
         type: TAX_UPDATE_REQUEST_FAILURE,
         error
     }
 };
 
-export const taxDeleteRequest = () => {
+export const taxesDeleteRequest = () => {
     return {
         type: TAX_DELETE_REQUEST,
     }
 };
 
-export const taxDeleteRequestSuccess = data => {
+export const taxesDeleteRequestSuccess = data => {
     return {
         type: TAX_DELETE_REQUEST_SUCCESS,
         data
     }
 };
 
-export const taxDeleteRequestFailure = error => {
+export const taxesDeleteRequestFailure = error => {
     return {
         type: TAX_DELETE_REQUEST_FAILURE,
         error
     }
 };
 
-export const taxCleanRequest = () => {
+export const taxesCleanRequest = () => {
     return {
         type: TAX_CLEAN_REQUEST
     }

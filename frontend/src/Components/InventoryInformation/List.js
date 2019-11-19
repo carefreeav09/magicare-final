@@ -204,8 +204,7 @@ const List = props => {
                     columns={columns}
                     stripped
                     rowKey={record => record.id}
-                    dataSource={inventories instanceof Array && inventories}
-                    scroll={{x: true}}
+                    dataSource={inventories &&  inventories}
                     loading={props.vehiclesLoading}
                     onChange={handleTableChange}
                     className={'p-1'}

@@ -4,6 +4,7 @@ import moment from "moment";
 import {Form, Switch, Button, Breadcrumb, Icon, Input, Select} from "antd";
 import {withRouter, Link} from "react-router-dom";
 import {convertToPascalCase, isEmpty} from "../../Utilities/commonUtil";
+import DynamicDateHandler from "../Common/DateHolders/DynamicDateHandler";
 
 const EditForm = (props) => {
     const {form, updateInventory, fetchInventoryByIdentifier, inventories, inventoriesErrors, match} = props;
@@ -254,24 +255,14 @@ const EditForm = (props) => {
                             </div>
 
                             <div className="col-md-4 mb-2">
-                                <Form.Item {...formItemLayout} label={'Added Date'}>
-                                    <div id={'dateAdded'}>
-                                        {getFieldDecorator('dateAdded', {
-                                            initialValue: inventories && inventories.dateAdded,
-                                            rules: [
-                                                {
-                                                    required: true,
-                                                    message: 'Added Date is required'
-                                                }
-                                            ]
-                                        })(
-                                            <NepaliDatePicker
-                                                id={'dateAdded'}
-                                                onChange={() => handleIsAddedDateUpdated()}
-                                            />
-                                        )}
-                                    </div>
-                                </Form.Item>
+                                <DynamicDateHandler
+                                    formItemLayout={formItemLayout}
+                                    startingValue={inventories && inventories.dateAdded}
+                                    fieldName={'dateAdded'}
+                                    label={'Date Added'}
+                                    fieldNamePicker={'dateAddedPicker'}
+                                    {...props}
+                                />
                             </div>
 
                             <div className="col-md-12 mb-2">
