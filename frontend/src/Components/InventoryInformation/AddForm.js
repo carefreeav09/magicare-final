@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import NepaliDatePicker from "react-datepicker-nepali";
-import moment from "moment";
 import {Form, Switch, Button, Breadcrumb, Icon, Input, Select} from "antd";
 import {withRouter, Link} from "react-router-dom";
 import {convertToPascalCase, isEmpty} from "../../Utilities/commonUtil";
