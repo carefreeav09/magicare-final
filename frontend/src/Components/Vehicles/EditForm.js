@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import NepaliDatePicker from "react-datepicker-nepali";
-import moment from "moment";
 import {Form, Switch, Button, Breadcrumb, Icon, Input} from "antd";
 import {withRouter, Link} from "react-router-dom";
 import {isEmpty} from "../../Utilities/commonUtil";
@@ -94,15 +93,12 @@ const EditForm = (props) => {
         resetFields()
     };
 
-    const handleIsServicingDateUpdated = () => {
-        const container = document.getElementById('servicingDatePicker');
-        let servicingDatePicker = container.children[0].children;
-        servicingDatePicker && servicingDatePicker[0].classList.add('date-picker-selected');
+    const handleServicingDateChange = (event) => {
+        setFieldsValue({[`servicingDate`] : event});
     };
 
     useEffect(() => {
         vehicleCleanRequest();
-        handleIsServicingDateUpdated();
         fetchVehiclesByIdentifier(match.params.id);
     }, []);
 
@@ -111,7 +107,8 @@ const EditForm = (props) => {
             {!isEmpty(vehiclesErrors) && <h6 className={'red white-text w-100'}>{vehiclesErrors}</h6>}
             <div className="row">
                 <div className="col-md-4">
-                    <h4 className={'text-primary'}>Update Vehicle Information for {vehicles && vehicles.vehicleNumber}</h4>
+                    <h4 className={'text-primary'}>Update Vehicle Information
+                        for {vehicles && vehicles.vehicleNumber}</h4>
                 </div>
                 <div className="col-md-8 text-right">
                     <Breadcrumb separator="/">
@@ -137,19 +134,26 @@ const EditForm = (props) => {
                         <div className="row">
                             <div className="col-md-4 mb-2">
                                 <Form.Item {...formItemLayout} label={'Servicing Date'}>
-                                    <div id={'servicingDatePicker'}>
-                                        {getFieldDecorator('servicingDate', {
-                                            initialValue: vehicles && vehicles.servicingDate,
-                                            rules: [
-                                                {
-                                                    required: true,
-                                                    message: 'Servicing Date is required'
-                                                }
-                                            ]
-                                        })(
+                                    <div id={'servicingDatePicker'} className={'row'}>
+                                        <div className="col-md-10 pr-0">
+                                            {getFieldDecorator('servicingDate', {
+                                                initialValue: vehicles && vehicles.servicingDate,
+                                                rules: [
+                                                    {
+                                                        required: true,
+                                                        message: 'Servicing Date is required'
+                                                    }
+                                                ]
+                                            })(
+                                                <Input disabled className={'w-100'} />
+                                            )}
+                                        </div>
+                                        <div className="col-md-2 pl-0">
                                             <NepaliDatePicker
-                                                className='w-50'/>
-                                        )}
+                                                id={'servicingDatePickerField'}
+                                                onChange={handleServicingDateChange}
+                                                className='w-100'/>
+                                        </div>
                                     </div>
                                 </Form.Item>
                             </div>

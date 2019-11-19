@@ -5,16 +5,11 @@ import {Form, Switch, Button, Breadcrumb, Icon} from "antd";
 import {withRouter, Link} from "react-router-dom";
 import { isEmpty} from "../../Utilities/commonUtil";
 import {convertADtoBS} from "../../Utilities/commonUtil";
-import NepaliDateCalender from '../NepaliCalender/NepaliDateSelect'
-import NepaliDate from "../NepaliCalender/NepaliDate";
-import PopupDialog from "../NepaliCalender/PopupDialog";
 
 const AddForm = (props) => {
     const {form, addVehicles, vehiclesErrors} = props;
     const {getFieldDecorator, validateFields, resetFields} = form;
     const [selectedDate, setSelectedDate] = useState(null);
-    const [state, setState] = useState({isVisible: false});
-    const [today, setToday] = useState(null);
 
     let wrapperRef = null;
 
@@ -75,42 +70,9 @@ const AddForm = (props) => {
         colon: false,
     };
 
-    useEffect(()=>{
-        setToday(NepaliDate.fromgregorian(new Date()));
-        document.addEventListener('mousedown', handleClickOutside);
-
-        return ()=>{
-            document.removeEventListener('mousedown',handleClickOutside);
-        }
-    }, []);
-
-
-    const handleClickOutside = (event) =>{
-        if (wrapperRef && !wrapperRef.contains(event.target)) {
-            setState({isVisible: false, });
-        }
-    };
-
-    const setWrapperRef = node => {
-        wrapperRef = node;
-    };
-
-    const togglePopup = () => {
-        setState({isVisible: !state.isVisible})
-    };
-
-    const handleDateSelect = ({year,month,day}) => {
-        let date = year + "/" + month + "/" + day;
-        setSelectedDate(date);
-        setState({
-            isVisible: true
-        });
-    };
-
     const handleSubmit = e => {
         e.preventDefault();
         validateFields((err, values) => {
-            console.log(convertADtoBS('2019', '11', '14'));
                 let selectedValues = values.vehicleType;
                 switch (selectedValues) {
                     case "Scooter":
@@ -175,7 +137,6 @@ const AddForm = (props) => {
                             Basic Information
                         </h6>
                         <div className="row">
-                            {console.log('component has updated with selectedDate', selectedDate)}
                             <div className="col-md-4 mb-2">
                                 <Form.Item {...formItemLayout} label={'Servicing Date'}>
                                     <div id={'servicingDatePicker'}>
@@ -187,10 +148,10 @@ const AddForm = (props) => {
                                                 }
                                             ]
                                         })(
-                                            <div ref={setWrapperRef} className="nepali-date-select">
-                                                <div onClick={togglePopup} className="date-display">{selectedDate && selectedDate.date}</div>
-                                                {state.isVisible && <PopupDialog onSelectDate={handleDateSelect} year={today.nepaliYear} month={today.nepaliMonth} day={today.day}/>}
-                                            </div>
+                                            <NepaliDatePicker
+                                                id={'servicingDatePicker'}
+                                                onChange={() => handleIsServicingDateUpdated()}
+                                            />
                                         )}
                                     </div>
                                 </Form.Item>
