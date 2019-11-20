@@ -1,4 +1,5 @@
 const Inventory = require('../model/InventoryModel');
+const nepaliCalender = require('nepali-calendar-js');
 
 const fetchAllInventoryInformation = (req, res) => {
     Inventory.fetchAllInventoryInformation(req.connection,  (err, result) => {
@@ -32,22 +33,26 @@ const fetchInventoryInformationById = (req, res) => {
 };
 
 const addInventoryInformation = (req, res) => {
-    Inventory.addInventoryInformation(req.connection, req.body, (err, result) => {
-        if(err){
-            res.send({
-                code: 500,
-                message: 'FAILURE',
-                data : err && err.sqlMessage
-            })
-        }
-        else {
-            res.send({
-                code: '200',
-                message: 'SUCCESS',
-                data : `Data Added Successfully`
-            })
-        }
-    })
+    let dateAdded = req && req.body && req.body.dateAdded;
+    let date = '2076/08/03'
+
+
+    // Inventory.addInventoryInformation(req.connection, req.body, (err, result) => {
+    //     if(err){
+    //         res.send({
+    //             code: 500,
+    //             message: 'FAILURE',
+    //             data : err && err.sqlMessage
+    //         })
+    //     }
+    //     else {
+    //         res.send({
+    //             code: '200',
+    //             message: 'SUCCESS',
+    //             data : `Data Added Successfully`
+    //         })
+    //     }
+    // })
 };
 
 const updateInventoryInformation = (req, res) => {

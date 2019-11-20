@@ -4,6 +4,7 @@ import moment from "moment";
 import {Form, Switch, Button, Breadcrumb, Icon} from "antd";
 import {withRouter, Link} from "react-router-dom";
 import { isEmpty} from "../../Utilities/commonUtil";
+import nepaliCalenderUtility from 'nepali-calendar-js';
 
 const AddForm = (props) => {
     const {form, addVehicles, vehiclesErrors} = props;
@@ -70,6 +71,10 @@ const AddForm = (props) => {
         e.preventDefault();
         validateFields((err, values) => {
                 let selectedValues = values.vehicleType;
+                let servicingDate = values.servicingDate && values.servicingDate.split('/');
+
+                let servicingDateToAD = nepaliCalenderUtility.toGregorian(parseInt(servicingDate[0], 10), parseInt(servicingDate[1], 10), parseInt(servicingDate[2], 10));
+                console.log(servicingDateToAD, 'servicingDateToAD');
                 switch (selectedValues) {
                     case "Scooter":
                     case "Bike":

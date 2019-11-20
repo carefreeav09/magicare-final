@@ -22,7 +22,8 @@
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
-    "mysql": "^2.17.1"
+    "mysql": "^2.17.1",
+    "nepali-calendar-js": "^1.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
