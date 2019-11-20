@@ -7,14 +7,14 @@ const {Option} = Select;
 const FormItem = Form.Item
 
 const List = props => {
-    const {vehicles, vehicleCleanRequest, form, fetchVehiclesWithCriteria} = props;
+    const {vehicles, taxesCleanRequest, form, fetchTaxesWithCriteria} = props;
     const {validateFields, getFieldDecorator, resetFields} = form;
 
     useEffect(() => {
-        vehicleCleanRequest();
-        fetchVehiclesWithCriteria({});
+        taxesCleanRequest();
+        fetchTaxesWithCriteria({});
         return()=>{
-            vehicleCleanRequest();
+            taxesCleanRequest();
         }
     }, []);
 
@@ -78,7 +78,7 @@ const List = props => {
             let formData = {};
             formData.vehicleType = values.vehicleType || null;
             formData.vehicleNumber = values.vehicleNumber || null;
-            fetchVehiclesWithCriteria(formData);
+            fetchTaxesWithCriteria(formData);
         })
     };
 

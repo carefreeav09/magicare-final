@@ -3,7 +3,7 @@ import NepaliDatePicker from "react-datepicker-nepali";
 import moment from "moment";
 import {Form, Switch, Button, Breadcrumb, Icon} from "antd";
 import {withRouter, Link} from "react-router-dom";
-import { isEmpty} from "../../Utilities/commonUtil";
+import {getExpiryDate, isEmpty} from "../../Utilities/commonUtil";
 import nepaliCalenderUtility from 'nepali-calendar-js';
 
 const AddForm = (props) => {
@@ -71,10 +71,7 @@ const AddForm = (props) => {
         e.preventDefault();
         validateFields((err, values) => {
                 let selectedValues = values.vehicleType;
-                let servicingDate = values.servicingDate && values.servicingDate.split('/');
 
-                let servicingDateToAD = nepaliCalenderUtility.toGregorian(parseInt(servicingDate[0], 10), parseInt(servicingDate[1], 10), parseInt(servicingDate[2], 10));
-                console.log(servicingDateToAD, 'servicingDateToAD');
                 switch (selectedValues) {
                     case "Scooter":
                     case "Bike":
@@ -82,12 +79,12 @@ const AddForm = (props) => {
                     case "Jeep":
                     case "Pickup":
                     case "Tipper":
-                        values.exipryDate = moment(values.servicingDate, "L").add(90, "days").format('L');
+                        values.expiryDate = getExpiryDate(values.servicingDate, 90);
                         break;
 
                     case "Heavy":
                     case "Generator":
-                        values.exipryDate = moment(values.servicingDate, "L").add(60, "days").format('L');
+                        values.expiryDate = getExpiryDate(values.servicingDate, 60);
                         break;
 
                     default:

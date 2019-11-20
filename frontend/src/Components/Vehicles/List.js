@@ -78,6 +78,7 @@ const List = props => {
             let formData = {};
             formData.vehicleType = values.vehicleType || null;
             formData.vehicleNumber = values.vehicleNumber || null;
+            formData.insuranceCompany = values.insuranceCompany || null;
             fetchVehiclesWithCriteria(formData);
         })
     };

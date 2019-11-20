@@ -3,7 +3,7 @@ import NepaliDatePicker from "react-datepicker-nepali";
 import moment from "moment";
 import {Form, Switch, Button, Breadcrumb, Icon} from "antd";
 import {withRouter, Link} from "react-router-dom";
-import {isEmpty} from "../../Utilities/commonUtil";
+import {getExpiryDate, isEmpty} from "../../Utilities/commonUtil";
 
 const AddForm = (props) => {
     const {form, addTaxInformation, taxesErrors} = props;
@@ -70,8 +70,15 @@ const AddForm = (props) => {
         e.preventDefault();
         validateFields((err, values) => {
             values.vehiclePrefix = values.vehiclePrefix.toUpperCase();
+            values.chassisNumber = values.chassisNumber.toUpperCase();
+            values.roadTaxBillNo = values.roadTaxBillNo.toUpperCase();
+            values.renewalTaxBillNo = values.renewalTaxBillNo.toUpperCase();
+            values.roadPermitBillNo = values.roadPermitBillNo.toUpperCase();
+            values.policyNumber = values.policyNumber.toUpperCase();
+            values.roadTaxExpiryDate = getExpiryDate(values.roadTaxDate, 365);
+            values.renewalTaxExpiryDate = getExpiryDate(values.renewalTaxDate, 365);
+            values.roadPermitExpiryDate = getExpiryDate(values.roadPermitDate, 365);
             addTaxInformation(values);
-
         })
     };
 

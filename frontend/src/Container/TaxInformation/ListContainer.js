@@ -1,35 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import List from '../../Components/Vehicles';
-import * as vehiclesService from '../../Services/vehiclesService';
-import * as vehiclesAction from '../../Actions/vehiclesAction';
+import List from '../../Components/TaxInformation/index';
+import * as taxesService from '../../Services/taxesService';
+import * as taxesAction from '../../Actions/taxesAction';
 import {bindActionCreators} from "redux";
 
 export class ListContainer extends Component {
 
     /**
-     * fetch all vehicles.
+     * fetch all taxes with criteria.
      * @params {formData}
      *
      */
-    fetchVehiclesWithCriteria = (formData) => {
-        this.props.actions.fetchVehiclesWithCriteria(formData);
+    fetchTaxesWithCriteria = (formData) => {
+        this.props.actions.fetchTaxesWithCriteria(formData);
     };
 
     /**
-     * clean all vehicle records..
+     * clean all taxes records..
      *
      */
-    vehicleCleanRequest = () => {
-        this.props.actions.vehicleCleanRequest();
+    taxesCleanRequest = () => {
+        this.props.actions.taxesCleanRequest();
     };
 
     render() {
         return (
             <List
-                vehicleCleanRequest={this.vehicleCleanRequest}
-                fetchVehiclesWithCriteria={this.fetchVehiclesWithCriteria}
+                taxesCleanRequest={this.taxesCleanRequest}
+                fetchTaxesWithCriteria={this.fetchTaxesWithCriteria}
                 {...this.props}
             />
         );
@@ -37,14 +37,14 @@ export class ListContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    vehicles: state.vehicles.payload,
-    vehiclesLoading: state.vehicles.loading,
-    vehiclesErrors : state.vehicles.errors
+    taxes: state.taxes.payload,
+    taxesLoading: state.taxes.loading,
+    taxesErrors : state.taxes.errors
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(Object.assign({}, vehiclesService, vehiclesAction), dispatch),
+        actions: bindActionCreators(Object.assign({}, taxesService, taxesAction), dispatch),
     };
 };
 
