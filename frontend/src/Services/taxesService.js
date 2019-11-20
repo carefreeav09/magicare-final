@@ -28,7 +28,7 @@ export const fetchTaxesByIdentifier = (id) => {
     }
 };
 
-export const addTaxes = (formData = {}) => {
+export const addTaxInformation = (formData = {}) => {
     return dispatch => {
         dispatch(taxesFetchRequest());
 

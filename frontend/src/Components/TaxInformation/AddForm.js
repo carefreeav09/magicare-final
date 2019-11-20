@@ -3,10 +3,10 @@ import NepaliDatePicker from "react-datepicker-nepali";
 import moment from "moment";
 import {Form, Switch, Button, Breadcrumb, Icon} from "antd";
 import {withRouter, Link} from "react-router-dom";
-import { isEmpty} from "../../Utilities/commonUtil";
+import {isEmpty} from "../../Utilities/commonUtil";
 
 const AddForm = (props) => {
-    const {form, addVehicles, taxesErrors} = props;
+    const {form, addTaxInformation, taxesErrors} = props;
     const {getFieldDecorator, validateFields, resetFields} = form;
 
     const formItemLayout = {
@@ -69,27 +69,8 @@ const AddForm = (props) => {
     const handleSubmit = e => {
         e.preventDefault();
         validateFields((err, values) => {
-                let selectedValues = values.vehicleType;
-                switch (selectedValues) {
-                    case "Scooter":
-                    case "Bike":
-                    case "Car":
-                    case "Jeep":
-                    case "Pickup":
-                    case "Tipper":
-                        values.exipryDate = moment(values.servicingDate, "L").add(90, "days").format('L');
-                        break;
-
-                    case "Heavy":
-                    case "Generator":
-                        values.exipryDate = moment(values.servicingDate, "L").add(60, "days").format('L');
-                        break;
-
-                    default:
-                        values.expiryDate = null;
-                }
-                values.vehiclePrefix  = values.vehiclePrefix.toUpperCase();
-                addVehicles(values);
+            values.vehiclePrefix = values.vehiclePrefix.toUpperCase();
+            addTaxInformation(values);
 
         })
     };
@@ -295,11 +276,11 @@ const AddForm = (props) => {
 
                             <div className="col-md-3 mb-2">
                                 <Form.Item {...formItemLayout} label={'Road Tax Amount'}>
-                                    {getFieldDecorator('roadTaxBillNo', {
+                                    {getFieldDecorator('roadTaxAmount', {
                                         rules: [
                                             {
                                                 required: true,
-                                                message: 'Road Tax Bill No is required'
+                                                message: 'Road Tax Amount is required'
                                             }
                                         ]
                                     })(
@@ -537,12 +518,9 @@ const AddForm = (props) => {
                                     )}
                                 </Form.Item>
                             </div>
-                        </div>
 
-                        <h6>Other Information</h6>
-                        <div className="row">
-                            <div className="col-md-12 mb-2">
-                                <Form.Item {...formItemRemarks} label={'Remarks'}>
+                            <div className="col-md-9 mb-2">
+                                <Form.Item {...formItemLayout} label={'Remarks'}>
                                     {getFieldDecorator('remarks', {
                                         rules: [
                                             {
@@ -555,6 +533,7 @@ const AddForm = (props) => {
                                     )}
                                 </Form.Item>
                             </div>
+
 
                             <div className="col-md-12">
                                 <Button htmlType={"submit"} className={'btn btn-success btn-sm'}>
