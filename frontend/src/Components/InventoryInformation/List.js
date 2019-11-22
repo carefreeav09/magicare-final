@@ -82,12 +82,12 @@ const List = props => {
         e.preventDefault();
         validateFields((err, values) => {
             let formData = {};
-            formData.product = values.product && convertToPascalCase(values.product) || null;
+            formData.product = values.product && (convertToPascalCase(values.product) || null);
             formData.price = values.price || null;
             formData.supplierInformation = values.supplierInformation || null;
-            formData.storedLocation = values.storedLocation && convertToPascalCase(values.storedLocation) || null;
-            formData.status = values.status && convertToPascalCase(values.status) || null;
-            formData.usedIn = values.usedIn && convertToPascalCase(values.usedIn) || null;
+            formData.storedLocation = values.storedLocation && (convertToPascalCase(values.storedLocation) || null);
+            formData.status = values.status && (convertToPascalCase(values.status) || null);
+            formData.usedIn = values.usedIn && (convertToPascalCase(values.usedIn) || null);
             fetchInventoryWithCriteria(formData);
         })
     };

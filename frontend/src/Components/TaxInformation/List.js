@@ -7,7 +7,7 @@ const {Option} = Select;
 const FormItem = Form.Item
 
 const List = props => {
-    const {vehicles, taxesCleanRequest, form, fetchTaxesWithCriteria} = props;
+    const {taxes, taxesCleanRequest, form, fetchTaxesWithCriteria} = props;
     const {validateFields, getFieldDecorator, resetFields} = form;
 
     useEffect(() => {
@@ -22,8 +22,8 @@ const List = props => {
 
     const columns = [
         {
-            title: <strong>Servicing Date</strong>,
-            dataIndex: 'servicingDate',
+            title: <strong>Added Date</strong>,
+            dataIndex: 'date',
             sorter: true,
             render: item => {
                 return (
@@ -46,11 +46,44 @@ const List = props => {
             dataIndex: 'vehicleNumber',
         },
         {
-            title: 'Remarks',
-            dataIndex: 'remarks',
+            title: 'Road Tax Bill',
+            dataIndex: 'roadTaxBillNo',
+        },
+        {
+            title: 'Road Tax Date',
+            dataIndex: 'roadTaxDate',
+        },
+        {
+            title: 'Renewal Tax Bill',
+            dataIndex: 'renewalTaxBillNo',
+        },
+        {
+            title: 'Renewal Tax Date',
+            dataIndex: 'renewalTaxDate',
+        },
+        {
+            title: 'Road Permit Bill No',
+            dataIndex: 'roadPermitBillNo',
+        },
+        {
+            title: 'Road Permit Bill No',
+            dataIndex: 'roadPermitDate',
+        },
+        {
+            title: 'Insured Amount',
+            dataIndex: 'insuredAmount',
+        },
+        {
+            title: 'Insurance Company',
+            dataIndex: 'insuranceCompany',
+        },
+        {
+            title: 'Insurance Started on',
+            dataIndex: 'insuranceStartDate',
         },
         {
             title: 'Actions',
+            fixed: 'right',
             dataIndex: 'id',
             render: item => {
                 return (
@@ -78,8 +111,28 @@ const List = props => {
             let formData = {};
             formData.vehicleType = values.vehicleType || null;
             formData.vehicleNumber = values.vehicleNumber || null;
+            formData.insuranceCompany = values.insuranceCompany || null;
             fetchTaxesWithCriteria(formData);
         })
+    };
+
+    const formItemLayout = {
+        labelCol: {
+            xl: {span: 14},
+            lg: {span: 14},
+            md: {span: 14},
+            sm: {span: 14},
+            xs: {span: 24},
+        },
+        wrapperCol: {
+            xl: {span: 10},
+            lg: {span: 10},
+            md: {span: 10},
+            sm: {span: 10},
+            xs: {span: 24},
+        },
+        labelAlign: 'left',
+        colon: false,
     };
 
     const handleReset = e => {
@@ -99,20 +152,20 @@ const List = props => {
                     </h4>
                     <Form layout={'inline'} onSubmit={handleSubmit} onReset={handleReset}>
                         <div className="row">
-                            <div className="col-md-5">
-                                <FormItem label={'Vehicle Number'}>
+                            <div className="col-md-3">
+                                <FormItem {...formItemLayout} label={'Vehicle Number'}>
                                     {getFieldDecorator('vehicleNumber', {})(
                                         <Input className={'form-control'}/>
                                     )}
                                 </FormItem>
                             </div>
 
-                            <div className="col-md-5">
-                                <FormItem label={'Vehicle Type'}>
+                            <div className="col-md-3">
+                                <FormItem {...formItemLayout} label={'Vehicle Type'}>
                                     {getFieldDecorator('vehicleType', {})(
-                                        <Select style={{
-                                            width: '200px'
-                                        }} showSearch
+                                        <Select showSearch style={{
+                                            width: '125px'
+                                        }}
                                                 placeholder={'Select Vehicle Type'}
                                         >
                                             <Option key={'Bike'} value={'Bike'}>
@@ -129,7 +182,15 @@ const List = props => {
                                 </FormItem>
                             </div>
 
-                            <div className="col-md-2">
+                            <div className="col-md-4 pl-4">
+                                <FormItem {...formItemLayout} label={'Company Name'}>
+                                    {getFieldDecorator('insuranceCompany', {})(
+                                        <Input className={'form-control'}/>
+                                    )}
+                                </FormItem>
+                            </div>
+
+                            <div className="col-md-2 mt-2">
                                 <Button htmlType="submit"
                                         className={'btn-success btn-sm'}>
                                     Search
@@ -148,8 +209,9 @@ const List = props => {
                 <Table
                     columns={columns}
                     stripped
+                    scroll={{ x: true }}
                     rowKey={record => record.id}
-                    dataSource={vehicles instanceof Array && vehicles}
+                    dataSource={taxes instanceof Array && taxes}
                     loading={props.vehiclesLoading}
                     onChange={handleTableChange}
                     className={'p-1'}
