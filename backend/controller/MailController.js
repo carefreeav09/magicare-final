@@ -9,12 +9,12 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-const fetchAllInventoryInformation = (req, res) => {
+const sendTestMail = (req, res) => {
     let mailOptions = {
         from: 'carefreeav09@gmail.com',
-        to: 'carefreeav09@gmail.com',
+        to: 'asmitasubedi0346@gmail.com',
         subject: 'Sending Email using Node.js',
-        text: 'That was easy!'
+        text: 'Hi asmi, this is automated message. sent with love.'
     };
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -24,10 +24,10 @@ const fetchAllInventoryInformation = (req, res) => {
             console.log('Email sent: ' + info.response);
         }
     });
-}
+};
 
 
 module.exports = {
-    fetchAllInventoryInformation
+    sendTestMail
 };
 
