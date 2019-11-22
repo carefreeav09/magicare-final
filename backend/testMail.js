@@ -5,6 +5,7 @@ const email = new Email({
         from: 'carefreeav09@gmail.com'
     },
     send: true,
+    preview:false,
     transport: {
         host: 'smtp.mailtrap.io',
         port: 2525,
@@ -17,20 +18,12 @@ const email = new Email({
     }
 });
 
-const people = [
-    {firstName: 'Diana', lastName: 'One'},
-    {firstName: 'Alex', lastName: 'Another'}
-];
-
-people.forEach((person) => {
-    email
-        .send({
-            template: 'welcome',
-            message: {
-                to: 'carefreeav09@gmail.com'
-            },
-            locals: person
-        })
-        .then(console.log)
-        .catch(console.error);
-});
+email
+    .send({
+        template: 'welcome',
+        message: {
+            to: 'carefreeav09@gmail.com'
+        },
+    })
+    .then()
+    .catch(console.error);
