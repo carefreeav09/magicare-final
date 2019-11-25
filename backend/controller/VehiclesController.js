@@ -1,6 +1,6 @@
 const Vehicles = require('../model/VehicleModel');
 
-const fetchVehicles = (req, res) => {
+export const fetchVehicles = (req, res) => {
     Vehicles.fetchAllVehicles(req.connection,  (err, result) => {
         res.send({
             code: '0',
@@ -10,7 +10,11 @@ const fetchVehicles = (req, res) => {
     });
 };
 
-const fetchVehiclesWithCriteria = (req, res) => {
+export const fetchAllExpiredVehicles = (req, res) => {
+
+}
+
+export const fetchVehiclesWithCriteria = (req, res) => {
     Vehicles.fetchAllVehiclesWithCriteria(req.connection, req.body,(err, result) => {
         res.send({
             code: '0',
@@ -20,7 +24,7 @@ const fetchVehiclesWithCriteria = (req, res) => {
     });
 };
 
-const fetchVehiclesById = (req, res) => {
+export const fetchVehiclesById = (req, res) => {
     Vehicles.fetchVehiclesById(req.connection, req.params.id,(err, result) => {
         res.send({
             code: '0',
@@ -31,7 +35,7 @@ const fetchVehiclesById = (req, res) => {
     });
 };
 
-const addVehicleInfo = (req, res) => {
+export const addVehicleInfo = (req, res) => {
     Vehicles.addVehicles(req.connection, req.body, (err, result) => {
         if(err){
             res.send({
@@ -50,7 +54,7 @@ const addVehicleInfo = (req, res) => {
     })
 };
 
-const updateVehicles = (req, res) => {
+export const updateVehicles = (req, res) => {
     Vehicles.updateVehicles(req.connection, req.body, req.params.id, (err, result) => {
         res.send({
             code: '0',
@@ -60,7 +64,7 @@ const updateVehicles = (req, res) => {
     })
 };
 
-const destroyVehicles = (req, res) => {
+export const destroyVehicles = (req, res) => {
     Vehicles.deleteVehicle(req.connection, req.params.id, (err, result) => {
         res.send({
             code : '0',
@@ -68,13 +72,4 @@ const destroyVehicles = (req, res) => {
             data: result
         })
     })
-};
-
-module.exports = {
-    fetchVehicles: fetchVehicles,
-    fetchVehiclesWithCriteria: fetchVehiclesWithCriteria,
-    fetchVehiclesById: fetchVehiclesById,
-    addVehicleInfo: addVehicleInfo,
-    destroyVehicles: destroyVehicles,
-    updateVehicles: updateVehicles
 };
