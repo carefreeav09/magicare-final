@@ -12,18 +12,10 @@ const email = new Email({
         ssl: false,
         tls: true,
         auth: {
-            user: 'a4058ddcbdea14', // your Mailtrap username
-            pass: 'af0dfd0c3f0c47' //your Mailtrap password
+            user: 'a4058ddcbdea14',
+            pass: 'af0dfd0c3f0c47'
         }
     }
 });
 
-email
-    .send({
-        template: 'welcome',
-        message: {
-            to: 'carefreeav09@gmail.com'
-        },
-    })
-    .then()
-    .catch(console.error);
+export default email;

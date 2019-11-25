@@ -6,6 +6,10 @@ const fetchVehiclesById = (connection, id, callback ) => {
     connection.query(`select * from vehicles where id=${id} limit 1`, callback)
 };
 
+const fetchAllExpiredVehicles = (connection, id, callback ) => {
+    connection.query(`select * from vehicles`, callback)
+};
+
 const fetchAllVehiclesWithCriteria = (connection, data, callback) => {
     data && (data.vehicleType && data.vehicleNumber) ?
         connection.query(`select * from vehicles where vehicleType = '${data.vehicleType}' and vehicleNumber = ${data.vehicleNumber}`, callback) :

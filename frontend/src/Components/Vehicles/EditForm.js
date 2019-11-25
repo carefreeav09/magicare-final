@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
-import NepaliDatePicker from "react-datepicker-nepali";
 import {Form, Switch, Button, Breadcrumb, Icon, Input} from "antd";
 import {withRouter, Link} from "react-router-dom";
-import {isEmpty} from "../../Utilities/commonUtil";
+import {getExpiryDate, isEmpty} from "../../Utilities/commonUtil";
 import DynamicDateHandler from "../Common/DateHolders/DynamicDateHandler";
 
 
@@ -71,6 +70,26 @@ const EditForm = (props) => {
         e.preventDefault();
         validateFields((err, values) => {
             if (!err) {
+                let selectedValues = values.vehicleType;
+
+                switch (selectedValues) {
+                    case "Scooter":
+                    case "Bike":
+                    case "Car":
+                    case "Jeep":
+                    case "Pickup":
+                    case "Tipper":
+                        values.expiryDate = getExpiryDate(values.servicingDate, 90);
+                        break;
+
+                    case "Heavy":
+                    case "Generator":
+                        values.expiryDate = getExpiryDate(values.servicingDate, 60);
+                        break;
+
+                    default:
+                        values.expiryDate = null;
+                }
                 updateVehicles(values);
             }
         })
