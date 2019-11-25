@@ -1,7 +1,5 @@
 let nodemailer = require('nodemailer');
 
-
-
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -10,10 +8,10 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-const fetchAllInventoryInformation = (req, res) => {
+const sendTestMail = (req, res) => {
     let mailOptions = {
         from: 'carefreeav09@gmail.com',
-        to: 'carefreeav09@gmail.com',
+        to: 'asmitasubedi0346@gmail.com',
         subject: 'Sending Email using Node.js',
         html: '<h1>' +
             'This is a HTML TEXT YES PLS' +
@@ -27,10 +25,10 @@ const fetchAllInventoryInformation = (req, res) => {
             console.log('Email sent: ' + info.response);
         }
     });
-}
+};
 
 
 module.exports = {
-    fetchAllInventoryInformation
+    sendTestMail
 };
 
