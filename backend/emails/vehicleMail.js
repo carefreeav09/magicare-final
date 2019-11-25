@@ -1,7 +1,6 @@
 import email from "./mail";
 
 export const sendVehicleMail = (req, res) => {
-
     email
         .send({
             template: 'vehicles',

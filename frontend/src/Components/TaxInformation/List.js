@@ -143,7 +143,7 @@ const List = props => {
     return (
         <div className={'container-fluid p-5'}>
             <h4 className={'text-primary'}>
-                Vehicle Information Lists
+                Taxes Information Lists
             </h4>
             <div className={'card mb-5 w-100'}>
                 <div className="card-body">

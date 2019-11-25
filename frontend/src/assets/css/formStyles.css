@@ -47,3 +47,10 @@
     height: 30px !important;
     margin: 0 !important;
 }
+
+.background-white .input-calendar-fields{
+    padding-left: 20px;
+    width: 100% !important;
+    color: gray !important;
+    background: gray;
+}

@@ -26,7 +26,7 @@ const DynamicDateHandler = props => {
                         <Input disabled className={'w-100'}/>
                     )}
                 </div>
-                <div className="col-md-2 pl-0">
+                <div className="col-md-2 pl-0 background-white">
                     <NepaliDatePicker
                         id={`${fieldNamePicker}`}
                         onChange={handleDateChange}

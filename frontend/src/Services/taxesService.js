@@ -9,7 +9,7 @@ import {store, fetch, destroy, update} from '../Utilities/httpUtil';
 import Toast from "../Components/Common/Toast";
 import {push} from "connected-react-router";
 
-export const fetchTaxesByIdentifier = (id) => {
+export const fetchTaxInformationByIdentifier = (id) => {
     return dispatch => {
         dispatch(taxesFetchRequest());
 
@@ -50,7 +50,7 @@ export const addTaxInformation = (formData = {}) => {
     }
 };
 
-export const updateTaxes = (formData = {}) => {
+export const updateTaxInformation = (formData = {}) => {
     return dispatch => {
         dispatch(taxesFetchRequest());
         return update(`api/taxes/update/${formData.id}`, formData)
