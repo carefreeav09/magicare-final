@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
-import {isEmpty} from "../../Utilities/commonUtil";
-import {Breadcrumb, Button, Form, Icon, Switch} from "antd";
+import {Breadcrumb, Form, Icon} from "antd";
 import {Link} from "react-router-dom";
-import NepaliDatePicker from "react-datepicker-nepali";
 
 const Detail = props => {
     const {vehicles, vehiclesErrors, vehiclesLoading, fetchVehiclesByIdentifier, vehicleCleanRequest, match} = props;
@@ -18,24 +16,6 @@ const Detail = props => {
     }, []);
 
     const formItemLayout = {
-        labelCol: {
-            xl: {span: 14},
-            lg: {span: 14},
-            md: {span: 14},
-            sm: {span: 14},
-            xs: {span: 24},
-        },
-        wrapperCol: {
-            xl: {span: 10},
-            lg: {span: 10},
-            md: {span: 10},
-            sm: {span: 10},
-            xs: {span: 24},
-        },
-        labelAlign: 'left',
-    };
-
-    const formItemLayoutSwitch = {
         labelCol: {
             xl: {span: 24},
             lg: {span: 24},
@@ -71,11 +51,29 @@ const Detail = props => {
         labelAlign: 'left',
     };
 
+    const formItemLayoutSwitch = {
+        labelCol: {
+            xl: {span: 24},
+            lg: {span: 24},
+            md: {span: 24},
+            sm: {span: 24},
+            xs: {span: 24},
+        },
+        wrapperCol: {
+            xl: {span: 24},
+            lg: {span: 24},
+            md: {span: 24},
+            sm: {span: 24},
+            xs: {span: 24},
+        },
+        labelAlign: 'left',
+    };
+
     return (
         <div className={'container-fluid p-5'}>
             <div className="row">
                 <div className="col-md-6">
-                    <h4 className={'text-primary'}>View Details for ${vehicles && vehicles.vehicleNumber}</h4>
+                    <h4 className={'text-primary'}>View Details for {vehicles && vehicles.vehiclePrefix} - {vehicles && vehicles.vehicleNumber}</h4>
                 </div>
                 <div className="col-md-6 text-right">
                     <Breadcrumb separator="/">

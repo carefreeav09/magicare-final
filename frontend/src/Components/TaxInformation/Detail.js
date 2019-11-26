@@ -1,41 +1,12 @@
 import React, {useEffect} from 'react';
+import {Form, Breadcrumb, Icon} from "antd";
+import {withRouter, Link} from "react-router-dom";
 import {isEmpty} from "../../Utilities/commonUtil";
-import {Breadcrumb, Button, Form, Icon, Switch} from "antd";
-import {Link} from "react-router-dom";
-import NepaliDatePicker from "react-datepicker-nepali";
 
-const Detail = props => {
-    const {vehicles, vehiclesErrors, vehiclesLoading, fetchVehiclesByIdentifier, vehicleCleanRequest, match} = props;
-
-    useEffect(()=>{
-        vehicleCleanRequest();
-        let vehiclesId = match.params.id;
-        fetchVehiclesByIdentifier(vehiclesId && vehiclesId);
-
-        return ()=>{
-            vehicleCleanRequest();
-        }
-    }, []);
+const Detail = (props) => {
+    const {fetchTaxInformationByIdentifier, taxes, taxesErrors, match} = props;
 
     const formItemLayout = {
-        labelCol: {
-            xl: {span: 14},
-            lg: {span: 14},
-            md: {span: 14},
-            sm: {span: 14},
-            xs: {span: 24},
-        },
-        wrapperCol: {
-            xl: {span: 10},
-            lg: {span: 10},
-            md: {span: 10},
-            sm: {span: 10},
-            xs: {span: 24},
-        },
-        labelAlign: 'left',
-    };
-
-    const formItemLayoutSwitch = {
         labelCol: {
             xl: {span: 24},
             lg: {span: 24},
@@ -71,236 +42,246 @@ const Detail = props => {
         labelAlign: 'left',
     };
 
+    useEffect(()=>{
+        fetchTaxInformationByIdentifier(match.params.id);
+    }, [])
+
     return (
         <div className={'container-fluid p-5'}>
+            {!isEmpty(taxesErrors) && <h6 className={'red white-text w-100'}>{taxesErrors}</h6>}
             <div className="row">
-                <div className="col-md-6">
-                    <h4 className={'text-primary'}>View Details for ${vehicles && vehicles.vehicleNumber}</h4>
+                <div className="col-md-4">
+                    <h4 className={'text-primary'}>View Tax Information for {taxes && <span>{taxes.vehiclePrefix} - {taxes.vehicleNumber}</span>}</h4>
                 </div>
-                <div className="col-md-6 text-right">
+                <div className="col-md-8 text-right">
                     <Breadcrumb separator="/">
                         <Breadcrumb.Item>
                             <Link to={'/dashboard'}>
                                 {' '}
-                                <Icon type="dashboard" /> Dashboard
+                                <Icon type="dashboard"/> Dashboard
                             </Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            <Link to={'/vehicles/'}>Vehicles Information</Link>
+                            <Link to={'/taxes/'}>Tax Information</Link>
                         </Breadcrumb.Item>
-                        <Breadcrumb.Item>Detail</Breadcrumb.Item>
+                        <Breadcrumb.Item>Add</Breadcrumb.Item>
                     </Breadcrumb>
                 </div>
             </div>
-            <div className="card card-gray-bg detail-form">
+            <div className="card card-gray-bg">
                 <div className="card-body">
                         <h6 className={'text-success'}>
                             Basic Information
                         </h6>
                         <div className="row">
-                            {console.log(vehicles && vehicles)}
                             <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Servicing Date'}>
+                                <Form.Item {...formItemLayout} label={'Date'}>
                                     <strong>
-                                        {vehicles && vehicles.servicingDate}
+                                        {taxes && taxes.date}
                                     </strong>
                                 </Form.Item>
                             </div>
 
                             <div className="col-md-3">
                                 <Form.Item {...formItemLayout} label={'Vehicle Prefix'}>
-                                    <strong>{vehicles && vehicles.vehiclePrefix}
+                                    <strong>
+                                        {taxes && taxes.vehiclePrefix}
                                     </strong>
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-3">
+                            <div className="col-md-3 mb-2">
                                 <Form.Item {...formItemLayout} label={'Vehicle Number'}>
-                                    {vehicles && vehicles.vehicleNumber}
+                                    <strong>{taxes && taxes.vehicleNumber}
+                                    </strong>
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-3">
+                            <div className="col-md-3 mb-2">
                                 <Form.Item {...formItemLayout} label={'Vehicle Type'}>
                                     <strong>
-                                        {vehicles && vehicles.vehicleType}
+                                        {taxes && taxes.vehicleType}
                                     </strong>
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Worked Hours'}>
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Chassis Number'}>
                                     <strong>
-                                        {vehicles && vehicles.workedHours}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-                        </div>
-
-                        <h6 className={'text-success'}>
-                            Parts Information
-                        </h6>
-                        <div className="row">
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Mobil'}>
-                                    <strong>
-                                        {vehicles && vehicles.mobil}
+                                        {taxes && taxes.chassisNumber}
                                     </strong>
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Mobil Filter Count'}>
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Engine Number'}>
                                     <strong>
-                                        {vehicles && vehicles.mobilFilter}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Engine Repair'}>
-                                    <strong>
-                                        {vehicles && vehicles.engineRepair}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Tyres'}>
-                                    <strong>
-                                        {vehicles && vehicles.tyres}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Tubes'}>
-                                    <strong>
-                                        {vehicles && vehicles.tubes}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Transmission Oil'}>
-                                    <strong>
-                                        {vehicles && vehicles.transmissionOil}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Hydraulic'}>
-                                    <strong>
-                                        {vehicles && vehicles.hydraulic}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Coolant Water'}>
-                                    <strong>
-                                        <strong>
-                                            {vehicles && vehicles.coolantWater}
-                                        </strong>
+                                        {taxes && taxes.engineNumber}
                                     </strong>
                                 </Form.Item>
                             </div>
                         </div>
 
                         <h6 className={'text-success'}>
-                            Has Parts Changed?
+                            Road Tax Information
                         </h6>
                         <div className="row">
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Air Filter'}>
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Road Tax Date'}>
                                     <strong>
-                                        <strong>
-                                            {vehicles && vehicles.airFilter ? 'Yes' : 'No'}
-                                        </strong>
+                                        {taxes && taxes.roadTaxDate}
                                     </strong>
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Pilot Filter'}>
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Road Tax Bill No'}>
                                     <strong>
-                                        {vehicles && vehicles.pilotFilter ? 'Yes' : 'No'}
+                                        {taxes && taxes.roadTaxBillNo}
                                     </strong>
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Hydraulic Filter'}>
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Road Tax Fiscal year'}>
                                     <strong>
-                                        {vehicles && vehicles.hydraulicFilter ? 'Yes' : 'No'}
+                                        {taxes && taxes.workedHours}
                                     </strong>
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Coolant Filter'}>
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Road Tax Amount'}>
                                     <strong>
-                                        {vehicles && vehicles.coolantFilter ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Transmission Filter'}>
-                                    <strong>
-                                        {vehicles && vehicles.transmissionFilter ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Water Safety'}>
-                                    <strong>
-                                        {vehicles && vehicles.waterSafety ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Breather'}>
-                                    <strong>
-                                        {vehicles && vehicles.breather ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Spare Parts'}>
-                                    <strong>
-                                        {vehicles && vehicles.spareParts ? 'Yes' : 'No'}
-                                    </strong>
-                                </Form.Item>
-                            </div>
-
-                            <div className="col-md-2">
-                                <Form.Item {...formItemLayoutSwitch} label={'Diesel filter'}>
-                                    <strong>
-                                        {vehicles && vehicles.dieselFilter ? 'Yes' : 'No'}
+                                        {taxes && taxes.roadTaxAmount}
                                     </strong>
                                 </Form.Item>
                             </div>
                         </div>
 
-                        <h6>Other Information</h6>
+                        <h6 className={'text-success'}>
+                            Renewal Tax Information
+                        </h6>
                         <div className="row">
-                            <div className="col-md-3">
-                                <Form.Item {...formItemLayout} label={'Total Cost'}>
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Renewal Tax Date'}>
                                     <strong>
-                                        {vehicles && vehicles.totalCost}
+                                        {taxes && taxes.renewalTaxDate}
                                     </strong>
                                 </Form.Item>
                             </div>
 
-                            <div className="col-md-8">
-                                <Form.Item {...formItemRemarks} label={'Remarks'}>
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Renewal Tax Bill No'}>
                                     <strong>
-                                        {vehicles && vehicles.remarks}
+                                        {taxes && taxes.renewalTaxBillNo}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Renewal Tax Fiscal year'}>
+                                    <strong>
+                                        {taxes && taxes.renewalTaxFiscalYear}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Renewal Tax Amount'}>
+                                    <strong>
+                                        {taxes && taxes.renewalTaxAmount}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                        </div>
+
+                        <h6 className={'text-success'}>
+                            Road Permit Information
+                        </h6>
+                        <div className="row">
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Road Permit Date'}>
+                                    <strong>
+                                        {taxes && taxes.roadPermitDate}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Road Permit Bill No'}>
+                                    <strong>
+                                        {taxes && taxes.roadPermitBillNo}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Road Permit Fiscal year'}>
+                                    <strong>
+                                        {taxes && taxes.roadPermitFiscalYear}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Road Permit Amount'}>
+                                    <strong>
+                                        {taxes && taxes.roadPermitAmount}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+                        </div>
+
+                        <h6 className={'text-success'}>
+                            Insurance Information
+                        </h6>
+                        <div className="row">
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Insurance Start Date'}>
+                                    <strong>
+                                        {taxes && taxes.insuranceStartDate}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Insurance End Date'}>
+                                    <strong>
+                                        {taxes && taxes.insuranceEndDate}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Policy Number'}>
+                                    <strong>
+                                        {taxes && taxes.policyNumber}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Insurance Company'}>
+                                    <strong>
+                                        {taxes && taxes.insuranceCompany}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-3 mb-2">
+                                <Form.Item {...formItemLayout} label={'Insured Amount'}>
+                                    <strong>
+                                        {taxes && taxes.insuredAmount}
+                                    </strong>
+                                </Form.Item>
+                            </div>
+
+                            <div className="col-md-9 mb-2">
+                                <Form.Item {...formItemLayout} label={'Remarks'}>
+                                    <strong>
+                                        {taxes && taxes.remarks}
                                     </strong>
                                 </Form.Item>
                             </div>
@@ -311,4 +292,4 @@ const Detail = props => {
     );
 };
 
-export default Detail;
+export default withRouter(Detail);

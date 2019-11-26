@@ -7,7 +7,14 @@ const addUsers = (connection, data, callback) => {
 };
 
 const checkLogin = (connection, data, callback) => {
-    connection.query(`select * from users where username = '${data.username}' and password = '${data.password}' limit 1`, callback)
+    connection.query(`select * from users where username = '${data.username}' and password = '${data.password}' limit 1`, (err, rows) => {
+        if (err) {
+            callback(err, null);
+        } else {
+            callback(null, rows)
+        }
+
+    })
 };
 
 const deleteUser = (connection, id, callback) => {

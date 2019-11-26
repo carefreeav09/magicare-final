@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Logo from "../../../assets/img/brand/logo.png";
-import {MDBCollapse} from "mdbreact";
 import {withRouter, NavLink, Link} from 'react-router-dom'
 
 const Sidebar = () => {
@@ -54,7 +53,7 @@ const Sidebar = () => {
                             </li>
 
                             <li className="nav-item">
-                                <NavLink to='/tax' className=" nav-link"> <i className="fas fa-paste text-warning"/>
+                                <NavLink to='/taxes' className=" nav-link"> <i className="fas fa-paste text-warning"/>
                                     <span className={'text-warning'}>Tax Information</span>
                                 </NavLink>
 

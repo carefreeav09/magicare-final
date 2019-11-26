@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
-import Jessica from '../../../assets/img/theme/team-1-800x800.jpg'
 import {MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle} from "mdbreact";
 import {getLocalStorage} from "../../../Utilities/storageUtil";
 import {USER_FULL_NAME, USER_ROLE} from "../../../Constants/appConfig";
 import {AuthContext} from "../../../Context/AuthContext";
+import {withRouter, Link} from "react-router-dom";
 
 const AdminTopBar = () => {
     const authData = useContext(AuthContext);
@@ -14,7 +14,9 @@ const AdminTopBar = () => {
                 <nav className="navbar navbar-expand-lg navbar-dark bg-gradient-primary ">
                     <div className="container-fluid">
                         <div className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-                        >Dashboard</div>
+                        >
+                            <Link to={'/dashboard'}><span className={'white-text'}>Dashboard</span> </Link>
+                            </div>
                         <ul className="navbar-nav align-items-center d-none d-md-flex">
                             <li className="nav-item dropdown">
                                 <div className="nav-link pr-0" role="button" data-toggle="dropdown"
@@ -43,4 +45,4 @@ const AdminTopBar = () => {
     );
 };
 
-export default AdminTopBar;
+export default withRouter(AdminTopBar);

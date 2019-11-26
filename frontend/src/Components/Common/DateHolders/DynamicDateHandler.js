@@ -13,7 +13,7 @@ const DynamicDateHandler = props => {
     return (
         <Form.Item {...formItemLayout} label={`${label}`}>
             <div id={`${fieldNamePicker}`} className={'row'}>
-                <div className="col-md-10 pr-0">
+                <div className="col-md-9 pr-0">
                     {getFieldDecorator(`${fieldName}`, {
                         initialValue: startingValue,
                         rules: [
@@ -23,10 +23,12 @@ const DynamicDateHandler = props => {
                             }
                         ]
                     })(
-                        <Input disabled className={'w-100'}/>
+                        <Input disabled className={'w-100'} style={{
+                            height: '100%'
+                        }}/>
                     )}
                 </div>
-                <div className="col-md-2 pl-0 background-white">
+                <div className="col-md-3 pl-0 background-white">
                     <NepaliDatePicker
                         id={`${fieldNamePicker}`}
                         onChange={handleDateChange}

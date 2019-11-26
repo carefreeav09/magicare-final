@@ -24,11 +24,6 @@ const LoginPage = (props) => {
         resetFields();
     };
 
-    useEffect(()=>{
-        console.log(authData);
-    }, []);
-
-
     return (
         <div className={'App-header'}>
             <div className="header bg-gradient-primary py-7 py-lg-8">
@@ -51,6 +46,7 @@ const LoginPage = (props) => {
                                     }}/>
                                 </div>
                             </div>
+                            {authData.hasErrors && <div className={'red-text text-center'}>{authData.hasErrors}</div> }
                             <div className="card-body px-lg-5 py-lg-5 login-form">
                                 <Form role="form" onSubmit={handleSubmit} onReset={handleReset}>
                                     <div className="form-group mb-3">

@@ -186,7 +186,7 @@ const List = props => {
 
                             <div className="col-md-3">
                                 <Button htmlType="submit"
-                                        className={'btn-success btn-sm'}>
+                                        className={'btn-primary btn-sm'}>
                                     Search
                                 </Button>
                                 <Button htmlType={'reset'} className={'btn-danger btn-sm'}>

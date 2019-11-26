@@ -1,35 +1,44 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Detail from '../../Components/Vehicles/Detail';
-import * as vehiclesService from '../../Services/vehiclesService';
-import * as vehiclesAction from '../../Actions/vehiclesAction';
+import Detail from '../../Components/TaxInformation/Detail';
+import * as taxesService from '../../Services/taxesService';
+import * as taxesAction from '../../Actions/taxesAction';
 import {bindActionCreators} from "redux";
 
 export class DetailContainer extends Component {
 
     /**
-     * Fetch vehicle information by Identifier
-     * @params id
+     * Fetch tax information by Identifier
+     * @params {formData}
      *
      */
-    fetchVehiclesByIdentifier = (id) => {
-        this.props.actions.fetchVehiclesByIdentifier(id);
+    fetchTaxInformationByIdentifier = (formData) => {
+        this.props.actions.fetchTaxInformationByIdentifier(formData);
     };
 
     /**
-     * clean all vehicle records..
+     * Update tax information.
+     * @params {formData}
      *
      */
-    vehicleCleanRequest = () => {
-        this.props.actions.vehicleCleanRequest();
+    updateTaxInformation = (formData) => {
+        this.props.actions.updateTaxInformation(formData);
+    };
+
+    /**
+     * clean all tax records..
+     *
+     */
+    taxesCleanRequest = () => {
+        this.props.actions.taxesCleanRequest();
     };
 
     render() {
         return (
             <Detail
-                vehicleCleanRequest={this.vehicleCleanRequest}
-                fetchVehiclesByIdentifier={this.fetchVehiclesByIdentifier}
+                taxesCleanRequest={this.taxesCleanRequest}
+                fetchTaxInformationByIdentifier={this.fetchTaxInformationByIdentifier}
                 {...this.props}
             />
         );
@@ -37,14 +46,14 @@ export class DetailContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    vehicles: state.vehicles.payload,
-    vehiclesLoading: state.vehicles.loading,
-    vehiclesErrors : state.vehicles.errors
+    taxes: state.taxes.payload,
+    taxesLoading: state.taxes.loading,
+    taxesErrors : state.taxes.errors
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(Object.assign({}, vehiclesService, vehiclesAction), dispatch),
+        actions: bindActionCreators(Object.assign({}, taxesService, taxesAction), dispatch),
     };
 };
 

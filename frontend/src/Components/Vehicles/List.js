@@ -132,7 +132,7 @@ const List = props => {
 
                             <div className="col-md-2">
                                 <Button htmlType="submit"
-                                        className={'btn-success btn-sm'}>
+                                        className={'btn-primary btn-sm pr-2'}>
                                     Search
                                 </Button>
                                 <Button htmlType={'reset'} className={'btn-danger btn-sm'}>

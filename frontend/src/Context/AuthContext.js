@@ -14,16 +14,24 @@ export const AuthContext = createContext();
 
 const AuthContextProvider = props => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [hasErrors, setHasErrors] = useState(null);
 
     const login = (formData) => {
         return axios.post('http://localhost:5000/api/login', formData)
             .then(response => {
-                setLocalStorage(JWT_TOKEN, response.data.data.token);
-                setLocalStorage(USER_ROLE, response.data.data.role);
-                setLocalStorage(USER_FULL_NAME, response.data.data.username);
-                setIsAuthenticated(true);
-                history.push('/');
-                console.log(response);
+                if(response.data.message !== "FAILED"){
+                    setLocalStorage(JWT_TOKEN, response.data.data.token);
+                    setLocalStorage(USER_ROLE, response.data.data.role);
+                    setLocalStorage(USER_FULL_NAME, response.data.data.username);
+                    setIsAuthenticated(true);
+                    history.push('/');
+                    console.log(response);
+                }
+
+                else{
+                    setHasErrors(response.data.data)
+                }
+
             })
             .catch(error => {
                 console.log(error);
@@ -40,6 +48,7 @@ const AuthContextProvider = props => {
     return (
        <AuthContext.Provider value={{
            isAuthenticated: isAuthenticated,
+           hasErrors: hasErrors,
            isLoggedIn : isLoggedIn,
            login : (formData) => login(formData),
            logout : logout

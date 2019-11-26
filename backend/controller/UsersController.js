@@ -14,11 +14,11 @@ const fetchAllUsers = (req, res) => {
 
 const checkUserData = (req, res) => {
     Users.checkLogin(req.connection, req.body, (err, result) => {
-        if (err) {
+        if (result.length === 0) {
             res.send({
-                code: '500',
-                message: 'FAILURE',
-                data: err
+                code: '404',
+                message: 'FAILED',
+                data: 'USER DOES NOT EXIST'
             })
         } else {
             if(result.length > 0){
@@ -38,6 +38,7 @@ const checkUserData = (req, res) => {
                 })
             }
             else {
+                console.log(err);
                 res.send({
                     code: '404',
                     message: 'FAILED',
