@@ -11,7 +11,6 @@ let vehiclesRouter = require('./router/vehicleRouter');
 let taxRouter = require('./router/taxRouter');
 let inventoryRouter = require('./router/inventoryRouter');
 let usersRouter = require('./router/users');
-let mailRouter = require('./router/mailRouter');
 
 // const startup= require('./startup/startup');
 
@@ -23,7 +22,6 @@ app.use(function(req, res, next) {
     req.connection = db;
     next()
 });
-
 
 app.use(cors());
 app.use(logger('dev'));
@@ -37,11 +35,10 @@ app.use('/api', usersRouter);
 app.use('/api/vehicles', vehiclesRouter);
 app.use('/api/taxes', taxRouter);
 app.use('/api/inventories', inventoryRouter);
-app.use('/api/mail', mailRouter);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'emails'));
-app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));

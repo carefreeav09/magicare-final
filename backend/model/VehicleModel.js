@@ -6,8 +6,15 @@ const fetchVehiclesById = (connection, id, callback ) => {
     connection.query(`select * from vehicles where id=${id} limit 1`, callback)
 };
 
-const fetchAllExpiredVehicles = (connection, id, callback ) => {
-    connection.query(`select * from vehicles`, callback)
+const fetchAllExpiredVehicles = (connection, callback ) => {
+    connection.query(`select * from vehicles`,  (err, rows) => {
+        if(err){
+            callback(err, null);
+        }
+        else{
+            callback(null, rows)
+        }
+    })
 };
 
 const fetchAllVehiclesWithCriteria = (connection, data, callback) => {
@@ -48,6 +55,7 @@ module.exports = {
     fetchAllVehiclesWithCriteria: fetchAllVehiclesWithCriteria,
     fetchVehiclesById : fetchVehiclesById,
     deleteVehicle : deleteVehicle,
+    fetchAllExpiredVehicles : fetchAllExpiredVehicles,
     updateVehicles : updateVehicles
 };
 

@@ -1,3 +1,5 @@
+import email from "../emails/mail";
+
 const Vehicles = require('../model/VehicleModel');
 
 export const fetchVehicles = (req, res) => {
@@ -11,8 +13,25 @@ export const fetchVehicles = (req, res) => {
 };
 
 export const fetchAllExpiredVehicles = (req, res) => {
-
-}
+    Vehicles.fetchAllExpiredVehicles(req.connection, (err, result) => {
+        const people = [
+            {firstName: 'Diana', lastName: 'One'},
+            {firstName: 'Alex', lastName: 'Another'}
+        ];
+        people.forEach((person) => {
+        email
+            .send({
+                template: 'vehicles',
+                message: {
+                    to: 'carefreeav09@gmail.com'
+                },
+                locals: person
+            })
+            .then()
+            .catch(console.error);
+        });
+    })
+};
 
 export const fetchVehiclesWithCriteria = (req, res) => {
     Vehicles.fetchAllVehiclesWithCriteria(req.connection, req.body,(err, result) => {
