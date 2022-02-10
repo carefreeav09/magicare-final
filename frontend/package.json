@@ -13,7 +13,7 @@
     "mdbreact": "^4.21.1",
     "moment": "^2.24.0",
     "nepali-calendar-js": "^1.0.4",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-datepicker-nepali": "^1.0.1",
